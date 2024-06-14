@@ -3,16 +3,16 @@
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
 
-define e = Character("Shauna")
+define s = Character("Shauna")
 define m = Character("Molly")
-
-
 
 # The game starts here.
 
 label start:
 
-## SCENE: PARK ENTRANCE DAY
+## 
+
+##SCENE: PARK ENTRANCE DAY
 ## QUIET MAIN THEME MUSIC, BACKGROUND NOISE OF PEOPLE AND WIND
 
 mc "What a wonderful day it is, here in the park."
@@ -23,4 +23,4 @@ mc "What a wonderful day it is, here in the park."
 
 mc "Hi girls!  What's happening?"
 
-    return
+return

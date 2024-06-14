@@ -349,30 +349,29 @@ style navigation_button_text:
 ## https://www.renpy.org/doc/html/screen_special.html#main-menu
 
 screen main_menu():
-
-    ## This ensures that any other menu screen is replaced.
     tag menu
 
-    add gui.main_menu_background
+    # Background image
+    add "gui/main_menu.png"
 
-    ## This empty frame darkens the main menu.
-    frame:
-        style "main_menu_frame"
+    # Main menu buttons at the bottom
+    hbox:
+        style_prefix "mm"
 
-    ## The use statement includes another screen inside this one. The actual
-    ## contents of the main menu are in the navigation screen.
-    use navigation
+        # Align buttons to the center bottom
+        xalign 0.5
+        yalign 0.95
 
-    if gui.show_name:
+        spacing 20  # Space between buttons
 
-        vbox:
-            style "main_menu_vbox"
+        # Buttons
+        textbutton _("Start Game") action Start()
+        textbutton _("Load Game") action ShowMenu("load")
+        textbutton _("Preferences") action ShowMenu("preferences")
+        textbutton _("Quit") action Quit(confirm=False)
 
-            text "[config.name!t]":
-                style "main_menu_title"
+    # Add any other customization here, like images or logos
 
-            text "[config.version]":
-                style "main_menu_version"
 
 
 style main_menu_frame is empty
