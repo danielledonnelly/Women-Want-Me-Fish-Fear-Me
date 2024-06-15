@@ -10,6 +10,26 @@ define n = Character("Enthusiastic Ad Narrator")
 init python:
     current_profile = "shauna"  # Track the current profile being displayed
 
+# Function to switch profiles
+init python:
+    def switch_profile(direction):
+        global current_profile
+        if direction == "left":
+            if current_profile == "shauna":
+                current_profile = "molly"
+            else:
+                current_profile = "shauna"
+            print(f"Profile switched to: {current_profile}")
+            renpy.restart_interaction()
+        elif direction == "right":
+            print("Jumping to its_a_catch")
+            renpy.jump("its_a_catch")
+
+# Load images
+image phone = "images/app-screen.png"
+image shauna = "images/shauna-screen.png"
+image molly = "images/molly-screen.png"
+
 # Label for the beginning of the story
 label start:
 
@@ -33,61 +53,54 @@ label start:
     "I guess it wouldn't hurt."
     "{i}So I downloaded it and made a profile.{/i}"
 
-    # User inputs their name and uploads a picture (this part can be more interactive with image upload mechanics, but we'll simplify for now)
+    # User inputs their name
     $ player_name = renpy.input("Enter your name: ")
     $ player_name = player_name.strip()  # Remove any leading or trailing whitespace
-    
+
     # Assign the player's name to character y
     $ y = Character(player_name)
 
-    # Display the dating app screen
-    show screen dating_app
+    # Jump to display profile
+    jump display_profile
 
-    # Label to handle left swipe (X button)
-    label swipe_left:
-    y "Didn't I just see this profile?"
-    jump start  # Go back to start label
+# Label to display the current profile
+label display_profile:
 
-    # Label to handle right swipe (Heart button)
-    label swipe_right:
-    y "It's a catch!"
-    jump start_conversation  # Jump to start_conversation label
+    # Show the phone background
+    scene phone
 
-    # Label to start a conversation after swiping right
-    label start_conversation:
-    # Start a conversation between characters
-    y "Hey there! How's it going?"
-    s "Oh, hi! I didn't expect someone like you to swipe right."
-    y "Haha, well, here we are. Tell me more about yourself."
+    if current_profile == "shauna":
+        show shauna at Position(xalign=0.5, yalign=0.5)
+    elif current_profile == "molly":
+        show molly at Position(xalign=0.5, yalign=0.5)
 
-    # Define the dating app screen
-    screen dating_app():
-        # Background image of the phone frame
-        add "images/phone_frame.png"  # Adjust path as per your project structure
+    # Display swipe buttons
+    call screen swipe_buttons
 
-        # Display profiles on the phone screen
-        frame:
-            xalign 0.5
-            yalign 0.5
+    return
 
-        vbox:
-            xalign 0.5
-            yalign 0.5
+# Screen to display swipe buttons
+screen swipe_buttons:
+    hbox:
+        xalign 0.5
+        yalign 0.9
+        spacing 20
 
-            # Profile image
-            if current_profile == "shauna":
-                add "images/shauna_profile.png"  # Replace with actual profile image
-            elif current_profile == "molly":
-                add "images/molly_profile.png"  # Replace with actual profile image
+        textbutton "X" action SetVariable("current_profile", "molly" if current_profile == "shauna" else "shauna")
+        textbutton "♥" action Function(switch_profile, "right")
 
-        # Buttons for swiping
-        hbox:
-            xalign 0.5
-            yalign 0.8
+# Label for "IT'S A CATCH!" screen
+label its_a_catch:
+    scene phone
 
-            # X button (Swipe Left)
-            textbutton "X" action Jump("swipe_left")
+    "IT'S A CATCH!"
 
-            # Heart button (Swipe Right)
-            textbutton "\u2764" action Jump("swipe_right")
+    # Example of starting a conversation
+    if current_profile == "shauna":
+        s "I'm so glad we matched!"
+        # Continue with Shauna's conversation
+    elif current_profile == "molly":
+        m "Looks like we have a lot in common!"
+        # Continue with Molly's conversation
 
+    return
