@@ -22,10 +22,12 @@ init python:
         renpy.jump("display_profile")
 
 # Load images
-image phone = "images/app-screen.png"
-image shauna = "images/shauna-screen.png"
-image molly = "images/molly-screen.png"
 image beach = "images/beach_background.png"
+image phone = "images/app-screen.png"
+image shauna-screen = "images/shauna-screen.png"
+image shauna_catch = "images/shauna-catch-screen.png"
+image molly-screen = "images/molly-screen.png"
+image molly_catch = "images/molly-catch-screen.png"
 
 # Label for the beginning of the story
 label start:
@@ -33,7 +35,7 @@ label start:
     # Background image for the scene, if you have one
     # scene bg room with fade
     scene beach with fade
-    # Narration an d dialogue
+    # Narration and dialogue
     "{i}It all started with a silly little ad I saw online.{/i}"
     n "DO YOU STRUGGLE TO FIND LOVE ON TRADITIONAL DATING APPS?"
     "Yes."
@@ -72,9 +74,9 @@ label display_profile:
 
     # Show current profile
     if current_profile == "shauna":
-        show shauna at Position(xalign=0.5, yalign=0.5)
+        show shauna-screen at Position(xalign=0.5, yalign=0.5)
     elif current_profile == "molly":
-        show molly at Position(xalign=0.5, yalign=0.5)
+        show molly-screen at Position(xalign=0.5, yalign=0.5)
 
     # Display swipe buttons
     call screen swipe_buttons
@@ -90,31 +92,33 @@ screen swipe_buttons:
 
         textbutton "X" action Function(switch_profile)
         textbutton "♥" action Jump("its_a_catch")
-        
+
 label its_a_catch:
-    scene phone
 
-    "IT'S A CATCH!"
-
-    # Direct to the specific route based on the current profile
+    # Show the catch screen based on the current profile
     if current_profile == "shauna":
+        hide shauna
+        show shauna_catch at Position(xalign=0.5, yalign=0.5)
+        $ renpy.pause(2.0)  # Pause to show the catch screen
         jump shauna_route
     elif current_profile == "molly":
+        hide molly
+        show molly_catch at Position(xalign=0.5, yalign=0.5)
+        $ renpy.pause(2.0)  # Pause to show the catch screen
         jump molly_route
 
     return
 
-    # Label for Shauna's route
-    label shauna_route: 
-        scene beach with fade
-        s "Welcome to my route!"
-        # Add more dialogue and scenes for Shauna's route here
-        return
+# Label for Shauna's route
+label shauna_route:
+    scene beach
+    s "Welcome to my route!"
+    # Add more dialogue and scenes for Shauna's route here
+    return
 
-    # Label for Molly's route
-    label molly_route:
-        scene beach with fade
-        m "Welcome to my route!"
-        # Add more dialogue and scenes for Molly's route here
-        return
-
+# Label for Molly's route
+label molly_route:
+    scene beach with fade
+    m "Welcome to my route!"
+    # Add more dialogue and scenes for Molly's route here
+    return
