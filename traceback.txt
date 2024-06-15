@@ -1,21 +1,25 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While loading <renpy.display.im.Image object ('game/gui/main_menu.png') at 0x0000000005cadd00>:
-OSError: Couldn't find file 'game/gui/main_menu.png'.
+While loading <renpy.display.im.Image object ('images/phone_frame.png') at 0x0000000005b939d0>:
+  File "game/script.rpy", line 48, in script
+    y "Didn't I just see this profile?"
+OSError: Couldn't find file 'images/phone_frame.png'.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "renpy/common/_layout/screen_main_menu.rpym", line 28, in script
-    python hide:
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ast.py", line 1131, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\python.py", line 1061, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "renpy/common/_layout/screen_main_menu.rpym", line 28, in <module>
-    python hide:
-  File "renpy/common/_layout/screen_main_menu.rpym", line 35, in _execute_python_hide
-    ui.interact()
+  File "game/script.rpy", line 48, in script
+    y "Didn't I just see this profile?"
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ast.py", line 921, in execute
+    renpy.exports.say(who, what, *args, **kwargs)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\exports.py", line 1373, in say
+    who(what, *args, **kwargs)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\character.py", line 1266, in __call__
+    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\character.py", line 927, in do_display
+    display_say(who,
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\character.py", line 666, in display_say
+    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
   File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ui.py", line 299, in interact
     rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
   File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 3377, in interact
@@ -56,9 +60,9 @@ Full traceback:
     filelike = renpy.loader.load(self.filename)
   File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\loader.py", line 820, in load
     raise IOError("Couldn't find file '%s'." % name)
-OSError: Couldn't find file 'game/gui/main_menu.png'.
+OSError: Couldn't find file 'images/phone_frame.png'.
 
 Windows-10-10.0.22631 AMD64
 Ren'Py 8.0.3.22090809
 Women Want Me Fish Fear Me 1.0
-Fri Jun 14 19:56:01 2024
+Fri Jun 14 20:32:11 2024
