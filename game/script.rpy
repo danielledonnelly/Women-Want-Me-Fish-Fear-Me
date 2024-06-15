@@ -12,31 +12,28 @@ init python:
 
 # Function to switch profiles
 init python:
-    def switch_profile(direction):
+    def switch_profile():
         global current_profile
-        if direction == "left":
-            if current_profile == "shauna":
-                current_profile = "molly"
-            else:
-                current_profile = "shauna"
-            print(f"Profile switched to: {current_profile}")
-            renpy.restart_interaction()
-        elif direction == "right":
-            print("Jumping to its_a_catch")
-            renpy.jump("its_a_catch")
+        if current_profile == "shauna":
+            current_profile = "molly"
+        else:
+            current_profile = "shauna"
+        print(f"Profile switched to: {current_profile}")
+        renpy.jump("display_profile")
 
 # Load images
 image phone = "images/app-screen.png"
 image shauna = "images/shauna-screen.png"
 image molly = "images/molly-screen.png"
+image beach = "images/beach_background.png"
 
 # Label for the beginning of the story
 label start:
 
     # Background image for the scene, if you have one
     # scene bg room with fade
-
-    # Narration and dialogue
+    scene beach with fade
+    # Narration an d dialogue
     "{i}It all started with a silly little ad I saw online.{/i}"
     n "DO YOU STRUGGLE TO FIND LOVE ON TRADITIONAL DATING APPS?"
     "Yes."
@@ -65,10 +62,15 @@ label start:
 
 # Label to display the current profile
 label display_profile:
-
+    scene beach
     # Show the phone background
-    scene phone
+    show phone
 
+    # Hide previous images
+    hide shauna
+    hide molly
+
+    # Show current profile
     if current_profile == "shauna":
         show shauna at Position(xalign=0.5, yalign=0.5)
     elif current_profile == "molly":
@@ -86,21 +88,33 @@ screen swipe_buttons:
         yalign 0.9
         spacing 20
 
-        textbutton "X" action SetVariable("current_profile", "molly" if current_profile == "shauna" else "shauna")
-        textbutton "♥" action Function(switch_profile, "right")
-
-# Label for "IT'S A CATCH!" screen
+        textbutton "X" action Function(switch_profile)
+        textbutton "♥" action Jump("its_a_catch")
+        
 label its_a_catch:
     scene phone
 
     "IT'S A CATCH!"
 
-    # Example of starting a conversation
+    # Direct to the specific route based on the current profile
     if current_profile == "shauna":
-        s "I'm so glad we matched!"
-        # Continue with Shauna's conversation
+        jump shauna_route
     elif current_profile == "molly":
-        m "Looks like we have a lot in common!"
-        # Continue with Molly's conversation
+        jump molly_route
 
     return
+
+    # Label for Shauna's route
+    label shauna_route: 
+        scene beach with fade
+        s "Welcome to my route!"
+        # Add more dialogue and scenes for Shauna's route here
+        return
+
+    # Label for Molly's route
+    label molly_route:
+        scene beach with fade
+        m "Welcome to my route!"
+        # Add more dialogue and scenes for Molly's route here
+        return
+

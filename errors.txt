@@ -2,13 +2,11 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 64: screen expects a non-empty block.
-    screen dating_app():
-                        ^
+The label its_a_catch is defined twice, at File "game/script.rpy", line 95:
+label its_a_catch:
+and File "game/script.rpy", line 98:
+label its_a_catch:
 
-File "game/script.rpy", line 69: expected statement.
-    frame:
-         ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Fri Jun 14 20:31:23 2024
+Sat Jun 15 19:53:53 2024
