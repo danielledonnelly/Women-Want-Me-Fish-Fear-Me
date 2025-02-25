@@ -189,7 +189,6 @@ label shauna_date1:
     "Even though there don't seem to be many fish out and around, time flies by."
     "We swap stories and enjoy each other's company, the sun shining down on us ."
     "Eventually, I feel a tug on my line."
-    "
     # Fishing minigame goes here
 
 label sdate1_catch:
@@ -205,8 +204,36 @@ label sdate1_catch:
     "I smiled."
     y "I'm sure it will. It's still only early, right? There's plenty of time."
     "Shauna nodded in agreement, her hands tightening around her rod."
+
+label sdate1_away:
+    show shauna surprise
+    "The fish got away..."
+    s "Ahh, you almost got it! Don't sweat it, you'll catch the next one."
+    show shauna shout
+    s "Oh!"
+    "Shauna's eyes widen as her line twitches."
+    show shauna surprise2
+    s "I got a bite, and it feels like a big one."
+    show shauna frown
+    "She focuses, her expression serious as she eagerly reels the fish in."
+    "Just when it looks like she has it, the line goes limp."
+    show shauna shout
+    s "Damn, so close." 
+    show shauna frown
+    "She shrugs, not looking too bothered."
+    show shauna smile
+    y "You'll get 'em next time."
+    "She smiles at that, leaning against the dock's railing with her rod still in hand."
+    show shauna happy
+    s "Maybe we're both just having an off day."
+    show shauna smile
+    y "Maybe."
+    "It's quiet for a few moments."
+    "I may not have been able to catch anything yet, but I wasn't about to give up yet."
+
+label sdate1_merge:
     show shauna happy2
-    s "Tell me about yourself. How did you get into fishing?"
+    s "So tell me about yourself. How did you get into fishing?"
     show shauna smile2
     y "Ah, it's not much of a story. Kind of silly, really."
     show shauna surprise
@@ -216,7 +243,7 @@ label sdate1_catch:
     menu: 
         "It was because of a video games.":
             y "This is embarrassing but..."
-            y "I always loved catching fish in video games when I was younger."
+            y "I've always loved catching fish in video games, ever since I was a kid."
             y "I found it really fun waiting for a tug and reeling it in."
             y "At a certain point, I wanted to try it for real."
             y "I figured it would be fun and useful to learn."
@@ -234,7 +261,7 @@ label sdate1_catch:
             s "Do you still play games?"
             show shauna smile
             y "Yeah, every now and then. Not as much as I used to."
-            show shauna surprise
+            show shauna neutral
             s "I see."
             show shauna happy
             s "Maybe I'll have to get you to show me one of these fishing games sometime."
@@ -296,33 +323,8 @@ label sdate1_catch:
             "Despite her warning, she didn't look too pressed."
             show shauna happy
             s "Anyways, like I was saying. It was a lifelong passion for me."
-            
 
-label sdate1_away:
-    show shauna surprise
-    "The fish got away..."
-    s "Ahh, you almost got it! Don't sweat it, you'll catch the next one."
-    show shauna shout
-    s "Oh!"
-    "Shauna's eyes widen as her line twitches."
-    show shauna surprise2
-    s "I got a bite, and it feels like a big one."
-    show shauna frown
-    "She focuses, her expression serious as she eagerly reels the fish in."
-    "Just when it looks like she has it, the line goes limp."
-    show shauna shout
-    s "Damn, so close." 
-    show shauna frown
-    "She shrugs, not looking too bothered."
-    show shauna smile
-    y "You'll get 'em next time."
-    "She smiles at that, leaning against the dock's railing with her rod still in hand."
-    show shauna happy
-    s "Maybe we're both just having an off day."
-    show shauna smile
-    y "Maybe."
-    "It's quiet for a few moments."
-    "I may not have been able to catch anything yet, but I wasn't about to give up yet."
+label sdate1_ending:
     # REEL HER IN MINIGAME
     show shauna surprise
     "I put my arm around her, and there's a shift in the air."
@@ -336,9 +338,6 @@ label sdate1_away:
     "She kisses me on the cheek."
     "Her smile softens as she turns to face the horizon, the sun beginning to dip below the water."  
     "We both sit there in comfortable silence, watching as the sky shifts into hues of pink and orange."  
-
-
-
 
 # Label for Molly's route
 label molly_route:

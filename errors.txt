@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 210: Line is indented, but the preceding say statement statement does not expect a block. Please check this line's indentation.
-    show shauna smile
-    ^
+File "game/script.rpy", line 192: is not terminated with a newline. (Check strings and parenthesis.)
+(Perhaps you left out a " at the end of the first line.)
+        "
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Sun Feb 23 21:04:43 2025
+Mon Feb 24 19:50:07 2025
