@@ -365,10 +365,25 @@ screen main_menu():
         spacing 20  # Space between buttons
 
         # Buttons
-        textbutton _("Start Game") action Start()
-        textbutton _("Load Game") action ShowMenu("load")
-        textbutton _("Preferences") action ShowMenu("preferences")
-        textbutton _("Quit") action Quit(confirm=False)
+        imagebutton:
+            idle "gui/start-button.png"
+            hover "gui/start-button.png"  # Use hover variant later if available
+            action Start()
+
+        imagebutton:
+            idle "gui/load-button.png"
+            hover "gui/load-button.png"
+            action ShowMenu("load")
+
+        imagebutton:
+            idle "gui/prefs-button.png"
+            hover "gui/prefs-button.png"
+            action ShowMenu("preferences")
+
+        imagebutton:
+            idle "gui/quit-button.png"
+            hover "gui/quit-button.png"
+            action Quit(confirm=False)
 
     # Add any other customization here, like images or logos
 

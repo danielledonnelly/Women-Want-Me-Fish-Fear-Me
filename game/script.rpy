@@ -192,13 +192,24 @@ label shauna_date1:
 
     jump fishing_minigame
     
-    # Run the fishing minigame
     label fishing_minigame:
-        $ renpy.run(["python", "fishing.py"])
-        if fishing.caught:
-            jump sdate1_catch
-        else:
-            jump sdate1_away
+    python:
+        import subprocess
+        process = subprocess.Popen(["python", "game/fishing-minigame/fishing.py"])
+        process.wait()  # Wait for the minigame to close before continuing
+
+    # Determine what happens next (modify fishing.py to write the result to a file)
+    python:
+        try:
+            with open("game/fishing-minigame/result.txt", "r") as f:
+                fishing_result = f.read().strip()
+        except FileNotFoundError:
+            fishing_result = "missed"  # Default to "missed" if the file is missing
+
+    if fishing_result == "caught":
+        jump sdate1_catch
+    else:
+        jump sdate1_away
 
 
 label sdate1_catch:
