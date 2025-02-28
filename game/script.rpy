@@ -191,6 +191,16 @@ label shauna_date1:
     "Eventually, I feel a tug on my line."
     # Fishing minigame goes here
 
+    
+    # Run the fishing minigame
+    label fishing_minigame:
+        $ renpy.run(["python", "fishing.py"])
+        if fishing.caught:
+            jump sdate1_catch
+        else:
+            jump sdate1_away
+
+
 label sdate1_catch:
     show shauna smile
     "I caught a tuna."

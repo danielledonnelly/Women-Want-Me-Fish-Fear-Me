@@ -2,9 +2,101 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 192: is not terminated with a newline. (Check strings and parenthesis.)
-(Perhaps you left out a " at the end of the first line.)
-        "
+File "game/script.rpy", line 323: expected statement.
+    current_time = time.time()
+                 ^
+
+File "game/script.rpy", line 324: expected statement.
+    elapsed_time = current_time - last_time
+                 ^
+
+File "game/script.rpy", line 325: expected statement.
+    last_time = current_time
+              ^
+
+File "game/script.rpy", line 328: expected statement.
+    timer -= elapsed_time
+           ^
+
+File "game/script.rpy", line 330: expected statement.
+    timer = 0
+          ^
+
+File "game/script.rpy", line 331: expected statement.
+    game_over = True
+              ^
+
+File "game/script.rpy", line 332: expected statement.
+    game_over_text = "IT SWAM AWAY..."
+                   ^
+
+File "game/script.rpy", line 334: expected statement.
+    clock.tick(30)  
+                    ^
+
+File "game/script.rpy", line 336: expected statement.
+    for event in pygame.event.get():
+              ^
+
+File "game/script.rpy", line 348: expected statement.
+    keys = pygame.key.get_pressed()
+         ^
+
+File "game/script.rpy", line 350: expected statement.
+    bobber_direction = -1  
+                     ^
+
+File "game/script.rpy", line 352: expected statement.
+    bobber_direction = 1   
+                     ^
+
+File "game/script.rpy", line 355: expected statement.
+    bobber.y += bobber_speed * bobber_direction
+             ^
+
+File "game/script.rpy", line 356: expected statement.
+    bobber.y = max(container_y, min(bobber.y, container_y + container_height - bobber.height + 2))
+             ^
+
+File "game/script.rpy", line 359: expected statement.
+    move_fish()
+               ^
+
+File "game/script.rpy", line 363: expected statement.
+    catch_time += clock.get_time()
+               ^
+
+File "game/script.rpy", line 365: expected statement.
+    game_over = True
+              ^
+
+File "game/script.rpy", line 366: expected statement.
+    game_over_text = "IT'S A CATCH!"
+                   ^
+
+File "game/script.rpy", line 367: expected statement.
+    fishing_result = "caught"
+                   ^
+
+File "game/script.rpy", line 369: expected statement.
+    catch_time -= catch_decrement
+                ^
+
+File "game/script.rpy", line 370: expected statement.
+    catch_time = max(0, catch_time)  
+               ^
+
+File "game/script.rpy", line 373: expected statement.
+    draw_window()
+                 ^
+
+File "game/script.rpy", line 378: expected statement.
+    game_over_text = "IT SWAM AWAY..."
+                   ^
+
+File "game/script.rpy", line 380: expected statement.
+    pygame.quit()
+                 ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Mon Feb 24 19:50:07 2025
+Fri Feb 28 13:27:17 2025
