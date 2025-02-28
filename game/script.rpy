@@ -189,8 +189,8 @@ label shauna_date1:
     "Even though there don't seem to be many fish out and around, time flies by."
     "We swap stories and enjoy each other's company, the sun shining down on us ."
     "Eventually, I feel a tug on my line."
-    # Fishing minigame goes here
 
+    jump fishing_minigame
     
     # Run the fishing minigame
     label fishing_minigame:
