@@ -367,24 +367,26 @@ screen main_menu():
         # Buttons
         imagebutton:
             idle "gui/start-button.png"
-            hover "gui/start-button.png"  # Use hover variant later if available
+            hover "gui/start-button-hover.png"  
             action Start()
+            xoffset 30 
 
         imagebutton:
             idle "gui/load-button.png"
-            hover "gui/load-button.png"
+            hover "gui/load-button-hover.png"
             action ShowMenu("load")
+            xoffset 40  
 
         imagebutton:
             idle "gui/prefs-button.png"
-            hover "gui/prefs-button.png"
+            hover "gui/prefs-button-hover.png"
             action ShowMenu("preferences")
+            xoffset 40  
 
         imagebutton:
             idle "gui/quit-button.png"
-            hover "gui/quit-button.png"
+            hover "gui/quit-button-hover.png"
             action Quit(confirm=False)
-
     # Add any other customization here, like images or logos
 
 

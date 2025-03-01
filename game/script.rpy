@@ -187,30 +187,16 @@ label shauna_date1:
     show shauna smile
     "The two of us settle in, casting our lines out into the water."
     "Even though there don't seem to be many fish out and around, time flies by."
-    "We swap stories and enjoy each other's company, the sun shining down on us ."
+    "We swap stories and enjoy each other's company, the sun shining down on us."
     "Eventually, I feel a tug on my line."
 
-    jump fishing_minigame
+    # Call the fishing minigame
+    $ caught_fish = renpy.call_in_new_context("fishing_minigame")
     
-    label fishing_minigame:
-    python:
-        import subprocess
-        process = subprocess.Popen(["python", "game/fishing-minigame/fishing.py"])
-        process.wait()  # Wait for the minigame to close before continuing
-
-    # Determine what happens next (modify fishing.py to write the result to a file)
-    python:
-        try:
-            with open("game/fishing-minigame/result.txt", "r") as f:
-                fishing_result = f.read().strip()
-        except FileNotFoundError:
-            fishing_result = "missed"  # Default to "missed" if the file is missing
-
-    if fishing_result == "caught":
+    if caught_fish:
         jump sdate1_catch
     else:
         jump sdate1_away
-
 
 label sdate1_catch:
     show shauna smile
@@ -225,6 +211,7 @@ label sdate1_catch:
     "I smiled."
     y "I'm sure it will. It's still only early, right? There's plenty of time."
     "Shauna nodded in agreement, her hands tightening around her rod."
+    jump sdate1_merge
 
 label sdate1_away:
     show shauna surprise
@@ -251,6 +238,7 @@ label sdate1_away:
     y "Maybe."
     "It's quiet for a few moments."
     "I may not have been able to catch anything yet, but I wasn't about to give up yet."
+    jump sdate1_merge
 
 label sdate1_merge:
     show shauna happy2
@@ -352,11 +340,32 @@ label sdate1_ending:
     show shauna smile
     "A light blush dusts her cheeks, but she doesn't pull away."
     y "You may not have caught anything today, but you definitely reeled me in."
-    show shauna cheer
-    "She rolls her eyes and laughs at the cheesy line."
-    show shauna happy
-    s "Yeah well... You're quite the catch yourself."
-    "She kisses me on the cheek."
+    
+    # Call the fishing minigame
+    "Time to show off my fishing skills!"
+    $ caught_fish = renpy.call_in_new_context("fishing_minigame")
+    
+    if caught_fish:
+        show shauna cheer
+        s "Wow! You actually caught one! I'm impressed!"
+        "She rolls her eyes and laughs."
+        show shauna happy
+        s "And here I thought you were just all talk."
+        y "What can I say? I've got skills."
+        show shauna smile
+        s "Yeah well... You're quite the catch yourself."
+        "She kisses me on the cheek."
+    else:
+        show shauna smile
+        s "Looks like neither of us are having much luck today."
+        "She rolls her eyes and laughs at the cheesy line."
+        show shauna happy
+        s "But I think I still caught something special today."
+        y "Oh? What's that?"
+        show shauna smile
+        s "You, silly."
+        "She kisses me on the cheek."
+    
     "Her smile softens as she turns to face the horizon, the sun beginning to dip below the water."  
     "We both sit there in comfortable silence, watching as the sky shifts into hues of pink and orange."  
 
