@@ -22,7 +22,8 @@ init python:
         renpy.jump("display_profile")
 
 # Load images
-image beach = "images/beach_background.png"
+image intro = "images/intro-background.png"
+image water = "images/water.png"
 image phone = "images/app-screen.png"
 image shauna-screen = "images/shauna-screen.png"
 image shauna_catch = "images/shauna-catch-screen.png"
@@ -47,7 +48,7 @@ label start:
 
     # Background image for the scene, if you have one
     # scene bg room with fade
-    scene beach with fade
+    scene intro with fade
     # Narration and dialogue
     "{i}It all started with a silly little ad I saw online.{/i}"
     n "DO YOU STRUGGLE TO FIND LOVE ON TRADITIONAL DATING APPS?"
@@ -77,7 +78,7 @@ label start:
 
 # Label to display the current profile
 label display_profile:
-    scene beach
+    scene water
     # Show the phone background
     show phone
 
@@ -161,7 +162,7 @@ label pond_wood:
     jump shauna_date1
 
 label shauna_date1:
-    scene beach
+    scene water
     show shauna happy
     s "Hey! Nice to see you in person."
     show shauna smile

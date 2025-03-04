@@ -2,13 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/fishing_minigame.rpy", line 213: expected statement.
-    message.txt
-               ^
-
-File "game/fishing_minigame.rpy", line 214: expected statement.
-    8 KB
-        ^
+File "game/fishing_minigame.rpy", line 156: keyword argument 'layer' appears more than once in a screen statement.
+    layer "overlay"
+         ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Fri Feb 28 21:09:57 2025
+Tue Mar  4 10:20:36 2025
