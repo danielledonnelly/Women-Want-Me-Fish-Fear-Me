@@ -30,6 +30,14 @@ image shauna_catch = "images/shauna-catch-screen.png"
 image molly-screen = "images/molly-screen.png"
 image molly_catch = "images/molly-catch-screen.png"
 
+# Ad images
+image ad1 = "images/ad-1.png"
+image ad2 = "images/ad-2.png"
+image ad3 = "images/ad-3.png"
+image ad4 = "images/ad-4.png"
+image ad5 = "images/ad-5.png"
+image ad6 = "images/ad-6.png"
+
 image shauna cheer = "images/sprites/shauna-cheer.png"
 image shauna frown = "images/sprites/shauna-frown.png"
 image shauna happy = "images/sprites/shauna-happy.png"
@@ -40,14 +48,31 @@ image shauna shout = "images/sprites/shauna-shout.png"
 image shauna smile = "images/sprites/shauna-smile.png"
 image shauna smile2 = "images/sprites/shauna-smile-2.png"
 image shauna surprise = "images/sprites/shauna-surprise.png"
-image shauna surprise = "images/sprites/shauna-surprise-2.png"
-
+image shauna surprise2 = "images/sprites/shauna-surprise-2.png"
 
 # Label for the beginning of the story
 label start:
-
-    # Background image for the scene, if you have one
-    # scene bg room with fade
+    # Hide the textbox for the ad sequence
+    window hide
+    
+    # Show each ad in sequence
+    show ad1 with dissolve
+    pause
+    show ad2 with dissolve
+    pause
+    show ad3 with dissolve
+    pause
+    show ad4 with dissolve
+    pause
+    show ad5 with dissolve
+    pause
+    show ad6 with dissolve
+    pause
+    
+    # Show the textbox again for the rest of the game
+    window show
+    
+    # Background image for the scene
     scene intro with fade
     # Narration and dialogue
     "{i}It all started with a silly little ad I saw online.{/i}"
@@ -134,7 +159,7 @@ label shauna_route:
     menu: 
         "The old wharf by the coastline":
             jump old_pier
-        "The pond over near the woodlands":
+        "The pond over near the woods":
             jump pond_wood
 
 label old_pier: 

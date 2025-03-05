@@ -213,6 +213,25 @@ define gui.choice_button_text_idle_color = "#cccccc"
 define gui.choice_button_text_hover_color = "#ffffff"
 define gui.choice_button_text_insensitive_color = "#444444"
 
+style choice_vbox is vbox
+style choice_button is button
+style choice_button_text is button_text
+
+style choice_vbox:
+    xalign 0.5
+    ypos 405
+    yanchor 0.5
+    spacing gui.choice_spacing
+
+style choice_button:
+    idle_background "gui/choice.png"
+    hover_background "gui/choice.png"
+    xminimum gui.choice_button_width
+    yminimum gui.choice_button_height
+
+style choice_button_text:
+    properties gui.button_text_properties("choice_button")
+
 
 ## File Slot Buttons ###########################################################
 ##

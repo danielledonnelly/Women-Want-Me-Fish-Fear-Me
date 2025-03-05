@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/fishing_minigame.rpy", line 156: keyword argument 'layer' appears more than once in a screen statement.
-    layer "overlay"
-         ^
+File "game/fishing_minigame.rpy", line 219: style property corner_radius is not known.
+    corner_radius 10  
+                 ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Tue Mar  4 10:20:36 2025
+Tue Mar  4 19:53:56 2025

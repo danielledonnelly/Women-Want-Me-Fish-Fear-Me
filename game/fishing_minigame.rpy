@@ -30,7 +30,7 @@ init python:
             self.fish_going_up = True
             
             # Basic game state
-            self.timer = 15.0
+            self.timer = 10.0
             self.overlap_time = 0.0
             self.caught = False
             self.game_over = False
@@ -46,24 +46,37 @@ init python:
                 self.game_over = True
                 return
             
-            # SUPER SIMPLE fish movement - just up and down
+            # More random fish movement
+            # 2% chance to change direction each frame
+            if random.random() < 0.02:
+                self.fish_going_up = not self.fish_going_up
+            
+            # Move fish
             if self.fish_going_up:
                 self.fish_y -= 2
+                # If at top, force downward
                 if self.fish_y < self.TOP_BOUND + 100:
                     self.fish_going_up = False
             else:
                 self.fish_y += 2
+                # If at bottom, force upward
                 if self.fish_y > self.BOTTOM_BOUND - 100:
                     self.fish_going_up = True
             
-            # Simple overlap check
-            if abs(self.bobber_y + 80 - self.fish_y) < 50:
-                self.overlap_time += dt * 0.3
+            # Better overlap detection - check if any part overlaps
+            bobber_top = self.bobber_y
+            bobber_bottom = self.bobber_y + 160  # Bobber height
+            fish_top = self.fish_y
+            fish_bottom = self.fish_y + 70  # Fish height
+            
+            # If there's any overlap between the ranges
+            if bobber_bottom >= fish_top and bobber_top <= fish_bottom:
+                self.overlap_time += dt * 0.5  # Increased rate for better feedback
                 if self.overlap_time >= 2.0:
                     self.caught = True
                     self.game_over = True
             else:
-                self.overlap_time = max(0, self.overlap_time - dt * 0.2)
+                self.overlap_time = max(0, self.overlap_time - dt * 0.3)  # Faster decrease when not overlapping
 
 # Create global instance
 default fishing = FishingGame()
@@ -78,32 +91,34 @@ screen fishing_minigame():
     # Background layer
     add "fishing-minigame/water.png"
 
-    # Bobber
-    add "fishing-minigame/bobber.png":
-        pos (fishing.bobber_x, fishing.bobber_y)
-        size (80, 160)
+    # Only show gameplay elements if game is not over
+    if not fishing.game_over:
+        # Bobber
+        add "fishing-minigame/bobber.png":
+            pos (fishing.bobber_x, fishing.bobber_y)
+            size (80, 160)
 
-    # THE FISH - JUST A SIMPLE IMAGE ON SCREEN
-    add "fishing-minigame/fish.png":
-        pos (fishing.fish_x, fishing.fish_y)
-        size (70, 70)
+        # THE FISH - JUST A SIMPLE IMAGE ON SCREEN
+        add "fishing-minigame/fish.png":
+            pos (fishing.fish_x, fishing.fish_y)
+            size (70, 70)
 
-    # Vertical progress bar - moved right
-    frame:
-        style_prefix "fishing"
-        pos (fishing.CENTER_X + 250, fishing.TOP_BOUND)
-        background "#0a2438"
-        padding (0, 0)
-        xysize (40, fishing.PLAY_HEIGHT)
-        
-        bar value fishing.overlap_time range 2.0:
-            style "fishing_progress"
+        # Vertical progress bar - moved right
+        frame:
+            style_prefix "fishing"
+            pos (fishing.CENTER_X + 250, fishing.TOP_BOUND)
+            background "#0a2438"
+            padding (0, 0)
+            xysize (40, fishing.PLAY_HEIGHT)
+            
+            bar value fishing.overlap_time range 2.0:
+                style "fishing_progress"
 
     # UI Layer
     # Timer display
     frame:
         style_prefix "fishing"
-        xalign 1.0
+        xalign 0.99  # Just a tiny bit from the edge
         ypos 20
         padding (20, 10)
         
@@ -113,18 +128,21 @@ screen fishing_minigame():
     frame:
         style_prefix "fishing"
         pos (20, 20)
+        padding (20, 10)  # Match timer padding
         
-        text "HOLD SPACE TO REEL UP"
+        text "Click space to reel"
     
-    # Replay button (always visible)
+    # Replay button (always visible but nearly transparent)
     frame:
         style_prefix "fishing"
         pos (20, 80)
+        at transparent
         
         textbutton "Replay" action Function(fishing.reset):
             style "fishing_button"
             text_size 20
-    
+            at transparent
+
     # Game over overlays - centered
     if fishing.game_over:
         if fishing.caught:
@@ -149,8 +167,12 @@ screen fishing_minigame():
     # Apply gravity but stop at bottom of progress bar
     timer 0.016 repeat True action Function(lambda: setattr(fishing, 'bobber_y', min(fishing.BOTTOM_BOUND + 60 - 160, fishing.bobber_y + 2)))
 
+# Add this near the top of the file, after the imports
+transform transparent:
+    alpha 0.02  # 98% transparent
+
 style fishing_frame:
-    background "#164C72"
+    background "#164C72"  # Original solid color background
     padding (10, 5)
 
 style fishing_text:
@@ -158,7 +180,7 @@ style fishing_text:
     size 24
 
 style fishing_button:
-    background "#164C72"
+    background "#164C72"  # Original solid color background
     padding (20, 10)
     xsize 200
     
@@ -175,6 +197,12 @@ style fishing_progress:
     bar_vertical True
     xsize 40
     ysize 1.0
+
+style fishing_rounded_frame:
+    background Frame("gui/frame.png", 10, 10)  # Using the default Ren'Py rounded frame
+    padding (20, 10)
+    xsize None  # Allow width to adjust to content
+    ysize None
 
 # Label that runs the minigame
 label fishing_minigame:
