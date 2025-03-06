@@ -1,68 +1,37 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/fishing_minigame.rpy", line 183, in script
-    $ caught = renpy.call_screen("fishing_minigame")
-  File "game/fishing_minigame.rpy", line 183, in <module>
-    $ caught = renpy.call_screen("fishing_minigame")
-  File "game/fishing_minigame.rpy", line 71, in execute
-    screen fishing_minigame():
-  File "game/fishing_minigame.rpy", line 71, in execute
-    screen fishing_minigame():
-  File "game/fishing_minigame.rpy", line 91, in execute
-    frame:
-  File "game/fishing_minigame.rpy", line 91, in keywords
-    frame:
-  File "game/fishing_minigame.rpy", line 96, in <module>
-    xysize (40, fishing.PLAY_HEIGHT)
-AttributeError: 'FishingGame' object has no attribute 'PLAY_HEIGHT'
+  File "game/script.rpy", line 13, in script
+    init python:
+  File "game/script.rpy", line 13, in script
+    init python:
+  File "game/script.rpy", line 16, in <module>
+    renpy.music.play("audio/music.mp3", channel="music", loop=True)
+Exception: Can't play music during init phase.
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/fishing_minigame.rpy", line 183, in script
-    $ caught = renpy.call_screen("fishing_minigame")
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\bootstrap.py", line 277, in bootstrap
+    renpy.main.main()
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\main.py", line 558, in main
+    renpy.game.context().run(node)
+  File "game/script.rpy", line 13, in script
+    init python:
+  File "/home/tom/ab/renpy-build/tmp/install.linux-x86_64/lib/python3.9/site-packages/future/utils/__init__.py", line 441, in raise_
+  File "game/script.rpy", line 13, in script
+    init python:
   File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ast.py", line 1131, in execute
     renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
   File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\python.py", line 1061, in py_exec_bytecode
     exec(bytecode, globals, locals)
-  File "game/fishing_minigame.rpy", line 183, in <module>
-    $ caught = renpy.call_screen("fishing_minigame")
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\exports.py", line 3181, in call_screen
-    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ui.py", line 299, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 3377, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 3810, in interact_core
-    root_widget.visit_all(lambda i : i.per_interact())
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 582, in visit_all
-    d.visit_all(callback, seen)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 582, in visit_all
-    d.visit_all(callback, seen)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 582, in visit_all
-    d.visit_all(callback, seen)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\screen.py", line 451, in visit_all
-    callback(self)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 3810, in <lambda>
-    root_widget.visit_all(lambda i : i.per_interact())
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\screen.py", line 462, in per_interact
-    self.update()
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\screen.py", line 653, in update
-    self.screen.function(**self.scope)
-  File "game/fishing_minigame.rpy", line 71, in execute
-    screen fishing_minigame():
-  File "game/fishing_minigame.rpy", line 71, in execute
-    screen fishing_minigame():
-  File "game/fishing_minigame.rpy", line 91, in execute
-    frame:
-  File "game/fishing_minigame.rpy", line 91, in keywords
-    frame:
-  File "game/fishing_minigame.rpy", line 96, in <module>
-    xysize (40, fishing.PLAY_HEIGHT)
-AttributeError: 'FishingGame' object has no attribute 'PLAY_HEIGHT'
+  File "game/script.rpy", line 16, in <module>
+    renpy.music.play("audio/music.mp3", channel="music", loop=True)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\audio\music.py", line 89, in play
+    raise Exception("Can't play music during init phase.")
+Exception: Can't play music during init phase.
 
 Windows-10-10.0.22631 AMD64
 Ren'Py 8.0.3.22090809
 Women Want Me Fish Fear Me 1.0
-Tue Mar  4 10:48:32 2025
+Wed Mar  5 12:37:44 2025

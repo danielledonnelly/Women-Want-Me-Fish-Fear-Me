@@ -6,6 +6,9 @@ define m = Character("Molly")
 define y = Character("Me")
 define n = Character("Enthusiastic Ad Narrator")
 
+# Define background music
+define audio.bgm = "audio/music.mp3"
+
 # Variables to track profile swiping
 init python:
     current_profile = "shauna"  # Track the current profile being displayed
@@ -25,10 +28,14 @@ init python:
 image intro = "images/intro-background.png"
 image water = "images/water.png"
 image phone = "images/app-screen.png"
-image shauna-screen = "images/shauna-screen.png"
+image shauna-profile = "images/shauna-profile.png"
+image molly-profile = "images/molly-profile.png"
 image shauna_catch = "images/shauna-catch-screen.png"
-image molly-screen = "images/molly-screen.png"
 image molly_catch = "images/molly-catch-screen.png"
+
+# Button images
+image left_button = "images/left.png"
+image right_button = "images/right.png"
 
 # Ad images
 image ad1 = "images/ad-1.png"
@@ -52,6 +59,9 @@ image shauna surprise2 = "images/sprites/shauna-surprise-2.png"
 
 # Label for the beginning of the story
 label start:
+    # Start playing background music
+    play music audio.bgm loop
+
     # Hide the textbox for the ad sequence
     window hide
     
@@ -69,28 +79,10 @@ label start:
     show ad6 with dissolve
     pause
     
-    # Show the textbox again for the rest of the game
+    # Show website background for name input
+    scene website
     window show
     
-    # Background image for the scene
-    scene intro with fade
-    # Narration and dialogue
-    "{i}It all started with a silly little ad I saw online.{/i}"
-    n "DO YOU STRUGGLE TO FIND LOVE ON TRADITIONAL DATING APPS?"
-    y "Yes."
-    n "DOES ONLINE DATING MAKE YOU FEEL LIKE A FISH OUT OF WATER?"
-    y "...Maybe."
-    n "DID YOU SIGN UP FOR PLENTY OF FISH THINKING IT WAS A SOCIAL MEDIA PLATFORM FOR FISHING ENTHUSIASTS?"
-    y "...Oddly specific... but yes."
-    n "GET READY TO FIND FELLOW FISH FANATICS WITH AN APP THAT'S WAY MORE REEL-ISTIC…"
-    n "FISHERS ONLY: WHERE EVERY 'CATCH' IS A KEEPER!"
-    n "FIND LOVE ON A PLATFORM MADE FOR FISHERS, BY FISHERS!" 
-    n "SWIPE, CHAT, AND REEL IN THAT SPECIAL SOMEONE!"
-    n "DOWNLOAD FISHERS ONLY TODAY!"
-    y "..."
-    y "I guess it wouldn't hurt."
-    "{i}So I downloaded it and made a profile.{/i}"
-
     # User inputs their name
     $ player_name = renpy.input("Enter your name: ")
     $ player_name = player_name.strip()  # Remove any leading or trailing whitespace
@@ -98,39 +90,51 @@ label start:
     # Assign the player's name to character y
     $ y = Character(player_name)
 
-    # Jump to display profile
+    # Hide textbox before jumping to profile display
+    window hide
     jump display_profile
 
 # Label to display the current profile
 label display_profile:
-    scene water
-    # Show the phone background
-    show phone
-
-    # Hide previous images
-    hide shauna
-    hide molly
-
+    window hide  # Ensure textbox stays hidden
+    scene black
+    
     # Show current profile
     if current_profile == "shauna":
-        show shauna-screen at Position(xalign=0.5, yalign=0.5)
-    elif current_profile == "molly":
-        show molly-screen at Position(xalign=0.5, yalign=0.5)
-
+        scene shauna-profile
+    else:
+        scene molly-profile
+    
     # Display swipe buttons
-    call screen swipe_buttons
-
+    call screen profile_buttons
+    
     return
 
-# Screen to display swipe buttons
-screen swipe_buttons:
-    hbox:
-        xalign 0.5
-        yalign 0.9
-        spacing 20
+# Screen for profile navigation buttons
+screen profile_buttons:
+    # Left arrow button (switch profiles)
+    imagebutton:
+        xalign 0.1  # Position on left side
+        yalign 0.5  # Center vertically
+        idle "images/left.png"
+        hover "images/left.png"
+        action Function(switch_profile)
+    
+    # Heart button (using right.png)
+    imagebutton:
+        xalign 0.9  # Position on right side
+        yalign 0.5  # Center vertically
+        idle "images/right.png"
+        hover "images/right.png"
+        action Jump("its_a_catch")
 
-        textbutton "X" action Function(switch_profile)
-        textbutton "♥" action Jump("its_a_catch")
+# Define style for profile buttons
+style profile_button:
+    size 50  # Make buttons larger
+    color "#FFFFFF"  # White text
+    hover_color "#FF69B4"  # Pink on hover
+    background None  # No button background
+    padding (20, 20)  # Add padding around the text
 
 label its_a_catch:
 
