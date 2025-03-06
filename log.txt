@@ -47,3 +47,9 @@ Version: b'4.6.0 NVIDIA 566.07'
 Display Info: None
 Screen sizes: virtual=(1920, 1080) physical=(1738, 978) drawable=(1738, 978)
 Maximum texture size: 4096x4096
+Profile switched to: molly
+Profile switched to: shauna
+Profile switched to: molly
+Profile switched to: shauna
+Profile switched to: molly
+Profile switched to: shauna
