@@ -9,6 +9,10 @@ define n = Character("Enthusiastic Ad Narrator")
 # Define background music
 define audio.bgm = "audio/music.mp3"
 
+# Define styles for menus
+style choice_button_text:
+    color "#000000"  # Black text for choices
+
 # Variables to track profile swiping
 init python:
     current_profile = "shauna"  # Track the current profile being displayed
@@ -30,8 +34,8 @@ image water = "images/water.png"
 image phone = "images/app-screen.png"
 image shauna-profile = "images/shauna-profile.png"
 image molly-profile = "images/molly-profile.png"
-image shauna_catch = "images/shauna-catch-screen.png"
-image molly_catch = "images/molly-catch-screen.png"
+image shauna_catch = "images/shauna-caught.png"
+image molly_catch = "images/molly-caught.png"
 
 # Button images
 image left_button = "images/left.png"
@@ -137,16 +141,13 @@ style profile_button:
     padding (20, 20)  # Add padding around the text
 
 label its_a_catch:
-
     # Show the catch screen based on the current profile
     if current_profile == "shauna":
-        hide shauna
-        show shauna_catch at Position(xalign=0.5, yalign=0.5)
+        scene shauna_catch with dissolve
         $ renpy.pause(2.0)  # Pause to show the catch screen
         jump shauna_route
     elif current_profile == "molly":
-        hide molly
-        show molly_catch at Position(xalign=0.5, yalign=0.5)
+        scene molly_catch with dissolve
         $ renpy.pause(2.0)  # Pause to show the catch screen
         jump molly_route
 
@@ -236,7 +237,7 @@ label sdate1_catch:
     show shauna smile2
     y "Thanks!"
     show shauna happy
-    s "I haven't had a single nip on my line yet, but I have a feeling my luck with change soon."
+    s "I haven't had a single nip on my line yet, but I have a feeling my luck will change soon."
     show shauna smile
     "I smiled."
     y "I'm sure it will. It's still only early, right? There's plenty of time."
