@@ -380,7 +380,7 @@ label sdate1_ending:
     
     if caught_fish:
         show shauna cheer
-        s "Wow! You actually caught one! I'm impressed!"
+        s "Whoa! You actually caught one! I'm impressed!"
         "She rolls her eyes and laughs."
         show shauna happy
         s "And here I thought you were just all talk."
