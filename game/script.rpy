@@ -63,8 +63,11 @@ image shauna surprise2 = "images/sprites/shauna-surprise-2.png"
 
 # Label for the beginning of the story
 label start:
-    # Start playing background music
-    play music audio.bgm loop
+    # Get the current position of the full song
+    $ current_pos = renpy.music.get_pos()
+    
+    # Switch to instrumental at the same position
+    play music ["<from {} loop 0>audio/instrumental.mp3".format(current_pos)] loop
 
     # Hide the textbox for the ad sequence
     window hide
@@ -372,9 +375,8 @@ label sdate1_ending:
     "A light blush dusts her cheeks, but she doesn't pull away."
     y "You may not have caught anything today, but you definitely reeled me in."
     
-    # Call the fishing minigame
-    "Time to show off my fishing skills!"
-    $ caught_fish = renpy.call_in_new_context("fishing_minigame")
+    # reel her in minigame with heart
+    $ caught_fish = renpy.call_in_new_context("heart_minigame")
     
     if caught_fish:
         show shauna cheer

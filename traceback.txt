@@ -1,95 +1,56 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
-While loading <renpy.display.im.Image object ('gui/textbox.png') at 0x00000000034a1a00>:
-  File "game/script.rpy", line 84, in script
-    window show
-  File "game/script.rpy", line 84, in script
-    window show
-  File "renpy/common/000window.rpy", line 159, in execute_window_show
-    _window_show(trans)
-  File "renpy/common/000window.rpy", line 69, in _window_show
-    renpy.with_statement(trans)
-OSError: Couldn't find file 'gui/textbox.png'.
+While running game code:
+  File "game/fishing_minigame.rpy", line 208, in script
+    $ caught = renpy.call_screen("fishing_minigame", game_type="fish")
+  File "game/fishing_minigame.rpy", line 208, in <module>
+    $ caught = renpy.call_screen("fishing_minigame", game_type="fish")
+  File "renpy/common/00action_other.rpy", line 578, in __call__
+    rv = self.callable(*self.args, **self.kwargs)
+  File "game/fishing_minigame.rpy", line 164, in <lambda>
+    timer 0.016 repeat True action Function(lambda: setattr(current_game, 'bobber_y', min(current_game.BOTTOM_BOUND + 60 - 160, current_game.bobber_y + 2)))
+NameError: name 'current_game' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\bootstrap.py", line 277, in bootstrap
-    renpy.main.main()
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\main.py", line 660, in main
-    run(restart)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\main.py", line 146, in run
-    renpy.execution.run_context(True)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\execution.py", line 938, in run_context
-    context.run()
-  File "game/script.rpy", line 84, in script
-    window show
-  File "/home/tom/ab/renpy-build/tmp/install.linux-x86_64/lib/python3.9/site-packages/future/utils/__init__.py", line 441, in raise_
-  File "game/script.rpy", line 84, in script
-    window show
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ast.py", line 2232, in execute
-    self.call("execute")
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ast.py", line 2220, in call
-    return renpy.statements.call(method, parsed, *args, **kwargs)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\statements.py", line 281, in call
-    return method(parsed, *args, **kwargs)
-  File "renpy/common/000window.rpy", line 159, in execute_window_show
-    _window_show(trans)
-  File "renpy/common/000window.rpy", line 69, in _window_show
-    renpy.with_statement(trans)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\exports.py", line 1657, in with_statement
-    return renpy.game.interface.do_with(trans, paired, clear=clear)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 2798, in do_with
-    return self.interact(trans_pause=True,
+  File "game/fishing_minigame.rpy", line 208, in script
+    $ caught = renpy.call_screen("fishing_minigame", game_type="fish")
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ast.py", line 1131, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\python.py", line 1061, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/fishing_minigame.rpy", line 208, in <module>
+    $ caught = renpy.call_screen("fishing_minigame", game_type="fish")
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\exports.py", line 3181, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ui.py", line 299, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
   File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 3377, in interact
     repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 3912, in interact_core
-    self.draw_screen(root_widget, fullscreen_video, (not fullscreen_video) or video_frame_drawn)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 2602, in draw_screen
-    surftree = renpy.display.render.render_screen(
-  File "render.pyx", line 495, in renpy.display.render.render_screen
-  File "render.pyx", line 266, in renpy.display.render.render
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 884, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 266, in renpy.display.render.render
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\transition.py", line 378, in render
-    top = render(self.new_widget, width, height, st, at)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 266, in renpy.display.render.render
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 884, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 266, in renpy.display.render.render
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 884, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 266, in renpy.display.render.render
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\screen.py", line 704, in render
-    child = renpy.display.render.render(self.child, w, h, st, at)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 266, in renpy.display.render.render
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 884, in render
-    surf = render(child, width, height, cst, cat)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 266, in renpy.display.render.render
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 1369, in render
-    back = render(style.background, bw, bh, st, at)
-  File "render.pyx", line 170, in renpy.display.render.render
-  File "render.pyx", line 266, in renpy.display.render.render
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\im.py", line 627, in render
-    return cache.get(self, render=True)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\im.py", line 295, in get
-    surf = image.load()
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\im.py", line 720, in load
-    raise e
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\im.py", line 685, in load
-    filelike = renpy.loader.load(self.filename)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\loader.py", line 820, in load
-    raise IOError("Couldn't find file '%s'." % name)
-OSError: Couldn't find file 'gui/textbox.png'.
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 4258, in interact_core
+    rv = root_widget.event(ev, x, y, 0)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 1175, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 1175, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 1175, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\screen.py", line 743, in event
+    rv = self.child.event(ev, x, y, st)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 1175, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\behavior.py", line 2418, in event
+    return run(self.function, *self.args, **self.kwargs)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\behavior.py", line 329, in run
+    return action(*args, **kwargs)
+  File "renpy/common/00action_other.rpy", line 578, in __call__
+    rv = self.callable(*self.args, **self.kwargs)
+  File "game/fishing_minigame.rpy", line 164, in <lambda>
+    timer 0.016 repeat True action Function(lambda: setattr(current_game, 'bobber_y', min(current_game.BOTTOM_BOUND + 60 - 160, current_game.bobber_y + 2)))
+NameError: name 'current_game' is not defined
 
 Windows-10-10.0.22631 AMD64
 Ren'Py 8.0.3.22090809
 Women Want Me Fish Fear Me 1.0
-Wed Mar  5 21:08:38 2025
+Thu Mar  6 19:27:05 2025

@@ -15,7 +15,7 @@ init python:
             # Simple bounds
             self.TOP_BOUND = 100
             self.BOTTOM_BOUND = self.HEIGHT - 50
-            self.PLAY_HEIGHT = self.BOTTOM_BOUND - self.TOP_BOUND + 60  # Add this back for progress bar
+            self.PLAY_HEIGHT = self.BOTTOM_BOUND - self.TOP_BOUND + 60
             
             # Center position
             self.CENTER_X = self.WIDTH // 2 + 100
@@ -24,7 +24,7 @@ init python:
             self.bobber_x = self.CENTER_X
             self.bobber_y = self.BOTTOM_BOUND - 160
             
-            # Super simple fish properties
+            # Super simple fish/heart properties
             self.fish_x = self.CENTER_X + 5
             self.fish_y = 300  # Start in middle
             self.fish_going_up = True
@@ -34,6 +34,9 @@ init python:
             self.overlap_time = 0.0
             self.caught = False
             self.game_over = False
+            
+            # Type of game (fish or heart)
+            self.game_type = "fish"
         
         def update(self, dt):
             if self.game_over:
@@ -78,74 +81,74 @@ init python:
             else:
                 self.overlap_time = max(0, self.overlap_time - dt * 0.3)  # Faster decrease when not overlapping
 
-# Create global instance
+# Create global instances for both game types
 default fishing = FishingGame()
+default heart_fishing = FishingGame()
 
-# Main minigame screen
-screen fishing_minigame():
+# Main minigame screen - now accepts a game_type parameter
+screen fishing_minigame(game_type="fish"):
     modal True
     
+    default current_game = heart_fishing if game_type == "heart" else fishing
+    $ current_game.game_type = game_type
+    
+    python:
+        def move_bobber_up(game):
+            game.bobber_y = max(game.TOP_BOUND, game.bobber_y - 45)
+            
+        def apply_gravity(game):
+            game.bobber_y = min(game.BOTTOM_BOUND + 60 - 160, game.bobber_y + 2)
+    
     # Update every frame
-    timer 0.016 repeat True action Function(fishing.update, 0.016)
+    timer 0.016 repeat True action Function(current_game.update, 0.016)
     
     # Background layer
     add "fishing-minigame/water.png"
 
     # Only show gameplay elements if game is not over
-    if not fishing.game_over:
+    if not current_game.game_over:
         # Bobber
         add "fishing-minigame/bobber.png":
-            pos (fishing.bobber_x, fishing.bobber_y)
+            pos (current_game.bobber_x, current_game.bobber_y)
             size (80, 160)
 
-        # THE FISH - JUST A SIMPLE IMAGE ON SCREEN
-        add "fishing-minigame/fish.png":
-            pos (fishing.fish_x, fishing.fish_y)
+        # Fish or Heart based on game type
+        add "fishing-minigame/[game_type].png":
+            pos (current_game.fish_x, current_game.fish_y)
             size (70, 70)
 
         # Vertical progress bar - moved right
         frame:
             style_prefix "fishing"
-            pos (fishing.CENTER_X + 250, fishing.TOP_BOUND)
+            pos (current_game.CENTER_X + 250, current_game.TOP_BOUND)
             background "#0a2438"
             padding (0, 0)
-            xysize (40, fishing.PLAY_HEIGHT)
+            xysize (40, current_game.PLAY_HEIGHT)
             
-            bar value fishing.overlap_time range 2.0:
+            bar value current_game.overlap_time range 2.0:
                 style "fishing_progress"
 
     # UI Layer
     # Timer display
     frame:
         style_prefix "fishing"
-        xalign 0.99  # Just a tiny bit from the edge
+        xalign 0.99
         ypos 20
         padding (20, 10)
         
-        text "Time: [fishing.timer:.0f]" color "#fff"
+        text "Time: [current_game.timer:.0f]" color "#fff"
 
     # Instructions
     frame:
         style_prefix "fishing"
         pos (20, 20)
-        padding (20, 10)  # Match timer padding
+        padding (20, 10)
         
         text "Click space to reel"
     
-    # Replay button (always visible but nearly transparent)
-    frame:
-        style_prefix "fishing"
-        pos (20, 80)
-        at transparent
-        
-        textbutton "Replay" action Function(fishing.reset):
-            style "fishing_button"
-            text_size 20
-            at transparent
-
     # Game over overlays - centered
-    if fishing.game_over:
-        if fishing.caught:
+    if current_game.game_over:
+        if current_game.caught:
             add "fishing-minigame/catch-text.png" align (0.5, 0.5)
             
             textbutton "Continue" action Return(True):
@@ -158,14 +161,14 @@ screen fishing_minigame():
                 style "fishing_button"
                 align (0.5, 0.9)
     
-    # Handle space key - move bobber up when space is pressed, constrained to progress bar bounds
+    # Handle space key
     key "K_SPACE" action [
-        Function(lambda: setattr(fishing, 'bobber_y', max(fishing.TOP_BOUND, fishing.bobber_y - 45))),
+        Function(move_bobber_up, current_game),
         NullAction()
     ]
     
-    # Apply gravity but stop at bottom of progress bar
-    timer 0.016 repeat True action Function(lambda: setattr(fishing, 'bobber_y', min(fishing.BOTTOM_BOUND + 60 - 160, fishing.bobber_y + 2)))
+    # Apply gravity
+    timer 0.016 repeat True action Function(apply_gravity, current_game)
 
 # Add this near the top of the file, after the imports
 transform transparent:
@@ -204,11 +207,20 @@ style fishing_rounded_frame:
     xsize None  # Allow width to adjust to content
     ysize None
 
-# Label that runs the minigame
+# Label for regular fishing minigame
 label fishing_minigame:
     window hide
     $ fishing.reset()
     $ renpy.transition(None)
-    $ caught = renpy.call_screen("fishing_minigame")
+    $ caught = renpy.call_screen("fishing_minigame", game_type="fish")
+    window show
+    return caught
+
+# Label for heart minigame
+label heart_minigame:
+    window hide
+    $ heart_fishing.reset()
+    $ renpy.transition(None)
+    $ caught = renpy.call_screen("fishing_minigame", game_type="heart")
     window show
     return caught

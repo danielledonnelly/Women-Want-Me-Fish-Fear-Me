@@ -208,3 +208,8 @@ init python:
 ## by a slash.
 
 # define build.itch_project = "renpytom/test-project"
+
+# Define our audio channels
+init python:
+    # Start the full song as soon as the game loads
+    config.main_menu_music = "audio/fullsong.mp3"
