@@ -1519,3 +1519,58 @@ style slider_vbox:
 style slider_slider:
     variant "small"
     xsize 900
+
+# Chat message styles
+style chat_window is default
+style chat_window_vbox:
+    xfill True
+    ysize 810  # Full height
+    yalign 0.5
+
+style chat_message:
+    xsize 900
+    padding (50, 20)
+    xmargin 20
+    ymargin 8
+
+style shauna_message is chat_message:
+    background "#E8E8E8"
+    xalign 0.0  # Left side
+    text_align 0.0
+    xoffset 100  # Offset from left edge
+
+style player_message is chat_message:
+    background "#007AFF"
+    xalign 1.0  # Right side
+    text_align 0.0  # Text aligned left within message
+    xoffset -100  # Offset from right edge
+
+style shauna_message_text:
+    color "#000000"
+    size 22
+    xpos 40  # Indent text from left edge of bubble
+
+style player_message_text:
+    color "#FFFFFF"
+    size 22
+    xpos 40  # Indent text from left edge of bubble
+
+# Message screen for showing conversation images in sequence
+screen message_screen():
+    # Show the current message image, starting from 1
+    $ message_number = current_message_index + 1
+    if message_number > 0 and message_number <= 10:  # Only show valid images (1-10)
+        add "shauna-message{}".format(message_number)
+
+    # Add key handling for space and mouse click to advance images
+    key "K_SPACE" action [
+        SetVariable("current_message_index", current_message_index + 1),
+        If(current_message_index >= 9, Jump("shauna_date1"))
+    ]
+    key "mouseup_1" action [
+        SetVariable("current_message_index", current_message_index + 1),
+        If(current_message_index >= 9, Jump("shauna_date1"))
+    ]
+
+# Initialize variables
+default current_message_index = -1

@@ -1,5 +1,10 @@
 # Simple Fishing Minigame for Ren'Py
 
+# Define the intro text images
+image it_text_image = "fishing-minigame/it.png"
+image her_text_image = "fishing-minigame/her.png"
+image fumble_text_image = "fishing-minigame/fumble-text.png"
+
 init python:
     import random
     
@@ -34,12 +39,13 @@ init python:
             self.overlap_time = 0.0
             self.caught = False
             self.game_over = False
+            self.game_started = False  # New flag for intro state
             
             # Type of game (fish or heart)
             self.game_type = "fish"
         
         def update(self, dt):
-            if self.game_over:
+            if self.game_over or not self.game_started:  # Don't update if in intro or game over
                 return
             
             # Update timer
@@ -81,6 +87,9 @@ init python:
             else:
                 self.overlap_time = max(0, self.overlap_time - dt * 0.3)  # Faster decrease when not overlapping
 
+        def start_game(self):
+            self.game_started = True
+
 # Create global instances for both game types
 default fishing = FishingGame()
 default heart_fishing = FishingGame()
@@ -94,10 +103,10 @@ screen fishing_minigame(game_type="fish"):
     
     python:
         def move_bobber_up(game):
-            game.bobber_y = max(game.TOP_BOUND, game.bobber_y - 45)
+            game.bobber_y = max(game.TOP_BOUND, game.bobber_y - 47)
             
         def apply_gravity(game):
-            game.bobber_y = min(game.BOTTOM_BOUND + 60 - 160, game.bobber_y + 2)
+            game.bobber_y = min(game.BOTTOM_BOUND + 60 - 160, game.bobber_y + 3)
     
     # Update every frame
     timer 0.016 repeat True action Function(current_game.update, 0.016)
@@ -105,8 +114,20 @@ screen fishing_minigame(game_type="fish"):
     # Background layer
     add "fishing-minigame/water.png"
 
-    # Only show gameplay elements if game is not over
-    if not current_game.game_over:
+    # Show intro text if game hasn't started
+    showif not current_game.game_started:
+        if game_type == "fish":
+            add "it_text_image" align (0.5, 0.5) size (1200, 600)
+        else:
+            add "her_text_image" align (0.5, 0.5) size (1200, 600)
+        
+        key "K_SPACE" action [
+            Function(current_game.start_game),
+            NullAction()
+        ]
+
+    # Only show gameplay elements if game is not over and has started
+    showif current_game.game_started and not current_game.game_over:
         # Bobber
         add "fishing-minigame/bobber.png":
             pos (current_game.bobber_x, current_game.bobber_y)
@@ -128,26 +149,26 @@ screen fishing_minigame(game_type="fish"):
             bar value current_game.overlap_time range 2.0:
                 style "fishing_progress"
 
-    # UI Layer
-    # Timer display
-    frame:
-        style_prefix "fishing"
-        xalign 0.99
-        ypos 20
-        padding (20, 10)
-        
-        text "Time: [current_game.timer:.0f]" color "#fff"
+        # UI Layer
+        # Timer display
+        frame:
+            style_prefix "fishing"
+            xalign 0.99
+            ypos 20
+            padding (20, 10)
+            
+            text "Time: [current_game.timer:.0f]" color "#fff"
 
-    # Instructions
-    frame:
-        style_prefix "fishing"
-        pos (20, 20)
-        padding (20, 10)
-        
-        text "Click space to reel"
+        # Instructions
+        frame:
+            style_prefix "fishing"
+            pos (20, 20)
+            padding (20, 10)
+            
+            text "Click space to reel"
     
     # Game over overlays - centered
-    if current_game.game_over:
+    showif current_game.game_over:
         if current_game.caught:
             add "fishing-minigame/catch-text.png" align (0.5, 0.5)
             
@@ -155,20 +176,25 @@ screen fishing_minigame(game_type="fish"):
                 style "fishing_button"
                 align (0.5, 0.9)
         else:
-            add "fishing-minigame/away-text.png" align (0.5, 0.5)
+            if game_type == "fish":
+                add "fishing-minigame/away-text.png" align (0.5, 0.5)
+            else:
+                add "fumble_text_image" align (0.5, 0.5)
             
             textbutton "Continue" action Return(False):
                 style "fishing_button"
                 align (0.5, 0.9)
     
-    # Handle space key
-    key "K_SPACE" action [
-        Function(move_bobber_up, current_game),
-        NullAction()
-    ]
+    # Handle space key during gameplay
+    if current_game.game_started and not current_game.game_over:
+        key "K_SPACE" action [
+            Function(move_bobber_up, current_game),
+            NullAction()
+        ]
     
-    # Apply gravity
-    timer 0.016 repeat True action Function(apply_gravity, current_game)
+    # Apply gravity only during gameplay
+    if current_game.game_started and not current_game.game_over:
+        timer 0.016 repeat True action Function(apply_gravity, current_game)
 
 # Add this near the top of the file, after the imports
 transform transparent:

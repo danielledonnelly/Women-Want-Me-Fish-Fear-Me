@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/fishing_minigame.rpy", line 219: style property corner_radius is not known.
-    corner_radius 10  
-                 ^
+File "game/screens.rpy", line 1571: 'xfill' is not a keyword argument or valid child for the add statement.
+    xfill True
+         ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Tue Mar  4 19:53:56 2025
+Sat Mar  8 03:28:07 2025

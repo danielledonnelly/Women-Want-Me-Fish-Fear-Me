@@ -31,11 +31,13 @@ init python:
 # Load images
 image intro = "images/intro-background.png"
 image water = "images/water.png"
+image pier = "images/pier.png"
 image phone = "images/app-screen.png"
 image shauna-profile = "images/shauna-profile.png"
 image molly-profile = "images/molly-profile.png"
 image shauna_catch = "images/shauna-caught.png"
 image molly_catch = "images/molly-caught.png"
+image fin = "images/fin.png"
 
 # Button images
 image left_button = "images/left.png"
@@ -60,6 +62,7 @@ image shauna smile = "images/sprites/shauna-smile.png"
 image shauna smile2 = "images/sprites/shauna-smile-2.png"
 image shauna surprise = "images/sprites/shauna-surprise.png"
 image shauna surprise2 = "images/sprites/shauna-surprise-2.png"
+image shauna blush = "images/sprites/shauna-blush.png"
 
 # Label for the beginning of the story
 label start:
@@ -158,50 +161,21 @@ label its_a_catch:
 
 # Label for Shauna's route
 label shauna_route:
-    s "Hey, it looks like we're a match. Or a 'catch', I guess."
-    s "Nice ass, by the way."
-    s "Ugh, autocorrect. I meant *BASS, the one you're holding in your profile picture."
-    s "Do you go fishing very often?"
-    y "I wouldn't be on Fishers Only if I didn't."
-    s "Nice! Where's your favourite spot?"
-    menu: 
-        "The old wharf by the coastline":
-            jump old_pier
-        "The pond over near the woods":
-            jump pond_wood
-
-label old_pier: 
-    s "Ooh, I know that one. It's one of my personal favourites, in fact."
-    s "I was actually thinking of going there this weekend. Would you like to join me?"
-    y "Sure."
-    s "Sweet! In the meantime, let's chat about bait... what do you typically use?"
-    s "Don't laugh... but I SWEAR I caught a carp with a gummy worm once."
-    # Shauna definitely uses gummy worms as bait.
-    "We talked for a while after that, sharing fishing stories and getting to know each other."
-    "Before I knew it, the weekend was already here."
-    jump shauna_date1
-
-label pond_wood: 
-    s "Huh, I'm not sure I heard of that one before. Maybe you could take me there sometime!"
-    s "I tend to prefer fishing in the ocean, personally. In fact, I was going to head out to a nice little spot on Sunday."
-    s "It's an old dock near the coastline."
-    y "That sounds nice. I tend to do most of my fishing in ."
-    s "Would you like to join me? It's a lot of fun casting a line from the wharf."
-    y "Yeah, sounds good."
-    s "Awesome! You're going to love it."
-    s "Let me tell you about some other great fishing spots, I know a lot of secret ones."
-    "We talked for a while after that. I learned a lot about Shauna and her favourite places to fish."
-    "Before I knew it, the weekend was already here."
-    jump shauna_date1
+    scene black
+    $ current_message_index = 0
+    show screen message_screen
+    pause
 
 label shauna_date1:
-    scene water
-    show shauna happy
+    scene black
+    hide screen message_screen
+    scene pier with dissolve
+    show shauna happy with dissolve
     s "Hey! Nice to see you in person."
     show shauna smile
     y "Same to you. How's it going?"
     show shauna happy
-    s "Not bad! The weather's looking great, so I'm excited to get some fishing done today."
+    s "Pretty good! The weather's looking great and the tide is running in so I'm excited to get fishing!"
     show shauna smile
     "I notice that she has some seats set up at the pier, along with a cooler and a tackle box."
     y "Looks like you came prepared."
@@ -244,7 +218,7 @@ label sdate1_catch:
     show shauna smile
     "I smiled."
     y "I'm sure it will. It's still only early, right? There's plenty of time."
-    "Shauna nodded in agreement, her hands tightening around her rod."
+    "Shauna nodded in agreement, her hands tightening around her fishing rod."
     jump sdate1_merge
 
 label sdate1_away:
@@ -290,21 +264,19 @@ label sdate1_merge:
             y "I found it really fun waiting for a tug and reeling it in."
             y "At a certain point, I wanted to try it for real."
             y "I figured it would be fun and useful to learn."
-            y "And... well, it was."
             show shauna smile
             "Shauna let out a thoughtful little hum before responding."
             show shauna happy
             s "That's not embarrassing at all, it's sweet."
-            s "Like you said, it's a pretty worthwhile skill to have."
             show shauna happy2
-            s "I think it's pretty cool that one hobby managed to get you into another one."
+            s "Don't you think it's pretty cool that one hobby managed to get you into another one?"
             show shauna smile
             y "I guess so, I never really thought of it like that."
             show shauna surprise
-            s "Do you still play games?"
+            s "Do you still play video games?"
             show shauna smile
             y "Yeah, every now and then. Not as much as I used to."
-            show shauna neutral
+            show shauna surprise
             s "I see."
             show shauna happy
             s "Maybe I'll have to get you to show me one of these fishing games sometime."
@@ -313,28 +285,35 @@ label sdate1_merge:
             show shauna cheer
             s "Hey!"
             show shauna smile
-            "Despite her incredulous tone, she couldn't help but smile."
+            "Despite her incredulous tone, Shauna couldn't help but smile."
             "I smiled too."
             show shauna happy
             s "Listen, unlike you, I've been a fisher since birth!"
-            s "My mom was a sailor, and my dad's the best angler I know."
+            s "My dad was a sailor, and my mom's the best angler I know."
             show shauna happy2
             s "So needless to say, fishing is in my blood."
             s "I've been going on seaside adventures ever since I was just a little tot."
             show shauna smile2
-            y "When did you first start?"
+            y "Wow, that's cool. How old were you when you went on your first fishing trip?"
             show shauna surprise
-            s "Hmm... hard to say. Maybe when I was six?"
+            s "Hmm... hard to say. Maybe when I was three or four?"
+            show shauna surprise2
             s "My parents got me started pretty young."
             show shauna neutral
             "She sighed, glaring down at her rod."
-            show shauna shout
+            show shauna surprise
             s "Not that you'd be able to tell!"
+            show shauna smile
+            "I can't help but laugh at that."
+            y "Aww... Don't be so hard on yourself. Everyone has their off days."
+            "I reach out and wrap my arm around her shoulder, shifting a bit closer to her with a reassuring smile."
+            show shauna blush
+            "She blushes, and there's a shift in the air. I try to think of what to say to fill the silence."
         "I lived by the coast, so it was natural.":
             y "I've always lived by the seaside in a rural little village."
             y "With the ocean so close, it seemed like the natural thing to do."
             y "All the other kids I knew growing up would go fishing in the summer."
-            y "So I did too. And eventually, I realized it was a lot of fun"
+            y "So I did too. And eventually, I realized it was a lot of fun."
             y "And a nice way to save on groceries, too."
             y "My parents were a big fan of my newfound talent, so we'd spend a lot of suppers eating fried fish together."
             show shauna happy
@@ -346,7 +325,7 @@ label sdate1_merge:
             show shauna surprise
             s "Oh cod, I don't even know if I remember. I was just a tiny little thing."
             show shauna happy
-            s "My dad used to love fishing when he was younger, and my mom was a sailor."
+            s "My mom has always loved fishing in the sea, and my day was a sailor."
             s "They were a match made in heaven. You're not gonna believe this, but I swear they got married on a boat."
             show shauna happy2
             s "And not a big yacht or anything fancy! A little canoe, if you can believe it."
@@ -356,53 +335,66 @@ label sdate1_merge:
             s "I can barely remember it, but they must have taught me to fish when I was real young."
             s "Because I've been fishing for as long as I can remember..."
             show shauna neutral
-            s "Probably learned how around the same time I learned to tie my shoes, that's how ingrained it feels."
+            s "Probably learned how to fish around the same time I learned to tie my shoes, that's how ingrained it feels."
             show shauna smile
             y "You say that, but I don't see any fish in your bucket..."
             show shauna shout
-            "She elbowed me in the ribs for that, giving me an indignant look."
-            s "Watch it, $player_name! Don't be saucy."
+            "She elbowed me in the ribs and gave me an indignant look."
+            s "Watch it, [player_name]! Don't be saucy."
             show shauna smile
             "Despite her warning, she didn't look too pressed."
-            show shauna happy
-            s "Anyways, like I was saying. It was a lifelong passion for me."
+            show shauna cheer
+            s "Anyways, like I was saying. Fishing is a lifelong passion for me."
+            show shauna smile
+            y "That's sweet. Honestly, I could listen to you talk about this all day. Your passion is really charming."
+            show shauna blush
+            "I can't help but smile as I wrap my arm around Shauna's shoulder, shifting a bit closer to her."
+            "She blushes, and there's a shift in the air. I try to think of what to say to fill the silence."
 
 label sdate1_ending:
     # REEL HER IN MINIGAME
-    show shauna surprise
-    "I put my arm around her, and there's a shift in the air."
-    show shauna smile
-    "A light blush dusts her cheeks, but she doesn't pull away."
-    y "You may not have caught anything today, but you definitely reeled me in."
+
     
     # reel her in minigame with heart
     $ caught_fish = renpy.call_in_new_context("heart_minigame")
     
     if caught_fish:
+        y "You may not have caught anything today, but you definitely reeled me in."
         show shauna cheer
-        s "Whoa! You actually caught one! I'm impressed!"
-        "She rolls her eyes and laughs."
-        show shauna happy
-        s "And here I thought you were just all talk."
-        y "What can I say? I've got skills."
-        show shauna smile
-        s "Yeah well... You're quite the catch yourself."
+        "She rolls her eyes and laughs. Her smile is infectious."
+        show shauna blush
+        s "Yeah well... You're quite the catch yourself, you know."
         "She kisses me on the cheek."
-    else:
-        show shauna smile
-        s "Looks like neither of us are having much luck today."
-        "She rolls her eyes and laughs at the cheesy line."
-        show shauna happy
-        s "But I think I still caught something special today."
-        y "Oh? What's that?"
-        show shauna smile
-        s "You, silly."
-        "She kisses me on the cheek."
-    
-    "Her smile softens as she turns to face the horizon, the sun beginning to dip below the water."  
-    "We both sit there in comfortable silence, watching as the sky shifts into hues of pink and orange."  
+        "There's a comfortable silence for a few moments before she speaks again."
+        show shauna happy2
+        s "Thank you for joining me, I had an amazing time today. We should do this again sometime, I'd love to go on another fishing date."
+        y "Who says we have to call it a day yet?"
+        y "Let's stay here a little longer... See where the day takes us. What do you say?"
+        show shauna blush
+        "She smiles, her eyes twinkling."
+        s "I'd like that."
+        "Her fingers intertwine with mine, and her head leans against my shoulder as we watch the sunset together."
+        scene fin
+        return
 
-# Label for Molly's route
+
+    else:
+        show shauna neutral
+        "I attempt to sputter out a cheesy pick-up line, but it fails miserably."
+        y "You may have caught- um.. you uh. Shit. Um.."
+        show shauna neutral2
+        s "Are you okay?"
+        show shauna surprise
+        s "Are you having a stroke?"
+        y "No, I'm... FUCK ummm hold on... You... I..."
+        show shauna surprise
+        s "Shit, you really {i}are{/i} having a stroke. Let's get you to the hospital!"
+        "After a long drive to the hospital in an ambulance, I was diagnosed with a severe case of brain damage."
+        "..."
+        "There was no second date."
+        scene fin
+        return  
+
 label molly_route:
     m "Welcome to my route!"
     # Add more dialogue and scenes for Molly's route here
