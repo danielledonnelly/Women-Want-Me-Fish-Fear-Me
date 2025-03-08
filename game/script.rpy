@@ -32,6 +32,7 @@ init python:
 image intro = "images/intro-background.png"
 image water = "images/water.png"
 image pier = "images/pier.png"
+image pond = "images/pond.png"
 image phone = "images/app-screen.png"
 image shauna-profile = "images/shauna-profile.png"
 image molly-profile = "images/molly-profile.png"
@@ -51,6 +52,7 @@ image ad4 = "images/ad-4.png"
 image ad5 = "images/ad-5.png"
 image ad6 = "images/ad-6.png"
 
+# Shauna's sprites
 image shauna cheer = "images/sprites/shauna-cheer.png"
 image shauna frown = "images/sprites/shauna-frown.png"
 image shauna happy = "images/sprites/shauna-happy.png"
@@ -63,6 +65,15 @@ image shauna smile2 = "images/sprites/shauna-smile-2.png"
 image shauna surprise = "images/sprites/shauna-surprise.png"
 image shauna surprise2 = "images/sprites/shauna-surprise-2.png"
 image shauna blush = "images/sprites/shauna-blush.png"
+
+# Molly's sprites
+image molly happy = "images/sprites/molly-happy.png"
+image molly smile = "images/sprites/molly-smile.png"
+image molly frown = "images/sprites/molly-frown.png"
+image molly blush = "images/sprites/molly-blush.png"
+image molly neutral = "images/sprites/molly-neutral.png"
+image molly surprised = "images/sprites/molly-surprised.png"
+image molly thoughtful = "images/sprites/molly-thoughtful.png"
 
 # Label for the beginning of the story
 label start:
@@ -245,7 +256,6 @@ label sdate1_away:
     show shauna smile
     y "Maybe."
     "It's quiet for a few moments."
-    "I may not have been able to catch anything yet, but I wasn't about to give up yet."
     jump sdate1_merge
 
 label sdate1_merge:
@@ -353,7 +363,6 @@ label sdate1_merge:
 
 label sdate1_ending:
     # REEL HER IN MINIGAME
-
     
     # reel her in minigame with heart
     $ caught_fish = renpy.call_in_new_context("heart_minigame")
@@ -367,35 +376,193 @@ label sdate1_ending:
         "She kisses me on the cheek."
         "There's a comfortable silence for a few moments before she speaks again."
         show shauna happy2
-        s "Thank you for joining me, I had an amazing time today. We should do this again sometime, I'd love to go on another fishing date."
+        s "Thank you for joining me [player_name], I had an amazing time today. I'd love to go on another fishing date with you sometime soon."
         y "Who says we have to call it a day yet?"
         y "Let's stay here a little longer... See where the day takes us. What do you say?"
         show shauna blush
         "She smiles, her eyes twinkling."
         s "I'd like that."
         "Her fingers intertwine with mine, and her head leans against my shoulder as we watch the sunset together."
-        scene fin
+        scene black with dissolve
+        window hide
+        scene fin with dissolve
+        pause
         return
 
-
     else:
+        show shauna frown
+        "I try to say something smooth, but the words get jumbled."
+        y "You uh… you… fuck. You're kinda like... a fish? I mean..."
         show shauna neutral
+        "She makes a face."
+        s "Uhh, you good?"
+        "I blurt out the worst possible thing."
+        y "I just—I feel like I've caught you, you know? Like, I set the bait, and now you're right where I want you."
+        show shauna yell
+        s "Dude."
+        s "...What."
+        y "Wait. I didn't mean it like that—"
+        s "You scare me, [player_name]."
+        "I made a terrible mistake."
+        "That day I learned that it's not just fish that fear me."
+        "Women now fear me too."
+        scene black with dissolve
+        window hide
+        scene fin with dissolve
+        pause
+        return
+
+label molly_route:
+    scene black
+    $ current_message_index = 0
+    show screen molly_message_screen
+    pause
+
+# Message screen for showing Molly's conversation images in sequence
+screen molly_message_screen():
+    # Show the current message image, starting from 1
+    $ message_number = current_message_index + 1
+    if message_number > 0 and message_number <= 6:  # Only show valid images (1-6)
+        add "molly-message{}".format(message_number)
+
+    # Add key handling for space and mouse click to advance images
+    key "K_SPACE" action [
+        SetVariable("current_message_index", current_message_index + 1),
+        If(current_message_index >= 5, Jump("molly_date1"))
+    ]
+    key "mouseup_1" action [
+        SetVariable("current_message_index", current_message_index + 1),
+        If(current_message_index >= 5, Jump("molly_date1"))
+    ]
+
+label molly_date1:
+    scene black
+    hide screen molly_message_screen
+    scene pond with dissolve
+    show molly smile with dissolve
+    "We chatted for a while about fishing, farming, foraging, and more. Before I knew it, it was time for our date."
+    show molly happy
+    m "I'm so glad you could make it. I love showing people around my favorite fishing spot."
+    y "Thanks for inviting me. This place is beautiful."
+    show molly smile
+    m "Right? The pond is perfect this time of year. The water's clear and the fish are really active."
+    "I notice Molly has a picnic basket and some fishing gear set up nearby."
+    show molly happy
+    m "I brought some snacks and extra equipment. Have you ever been pond fishing before?"
+    
+    menu:
+        "Yeah, I'm pretty experienced.":
+            y "I mostly tend to fish from the coastline, but I've done a fair share of pond fishing as well."
+            show molly smile
+            m "Oh, that's really interesting. I bet you have a lot of great fishing stories."
+            y "I do. I won't get into them now, but maybe on our next date."
+            show molly blush
+            m "You're so forward. I kind of like it."
+            "She seems flustered for a moment before regaining her composure."
+        "No, this is my first time.":
+            y "Actually, this is my first time. I've only fished in the ocean before."
+            show molly happy
+            m "Interesting. It shouldn't be too much different, but I'd still be happy to show you the ropes."
+    show molly smile
+    m "Anyways, for now, why don't we get started? Let's both cast our lines and see what we can catch."
+    "I grab some bait from Molly's basket, and we both cast our lines into the pond."
+    "For a few moments, the water is still."
+    "...Until suddenly, I feel a tug on my line."
+    
+    # Call the fishing minigame with molly parameter
+    window hide
+    $ caught_fish = renpy.call_screen("fishing_minigame", game_type="fish", character="molly")
+    window show
+    
+    if caught_fish:
+        jump mdate1_catch
+    else:
+        jump mdate1_away
+
+label mdate1_catch:
+    "I caught a carp."
+    show molly happy
+    m "Wow, nice catch! That's one of the bigger ones I've seen in this pond."
+    show molly smile
+    y "Thanks! The water's so clear, I could see it coming for the lure."
+    m "You're a natural at this. Want to try for another one?"
+    jump mdate1_merge
+
+label mdate1_away:
+    show molly frown
+    "The fish got away..."
+    show molly smile
+    m "Hey, don't worry about it. That's just how fishing goes sometimes."
+    y "Yeah, I guess you're right."
+    show molly happy
+    m "Besides, the real fun is in the experience, right? Just being out here, enjoying nature..."
+    jump mdate1_merge
+
+label mdate1_merge:
+    show molly smile
+    m "You know, I've been coming to this pond since I was little."
+    y "Really? How did you discover it?"
+    show molly happy
+    m "It's actually a funny story..."
+    show molly smile
+    m "I used to help my grandmother collect wild herbs and berries. One summer, I wandered off a little too far while looking for the sweetest blackberries."
+    show molly blush
+    m "Before I knew it, I was completely lost. I was too stubborn to call for help, so I kept walking, hoping I'd recognize something."
+    show molly happy
+    m "That's when I found this pond. The water was so still, the air smelled like wildflowers... I almost forgot I was lost."
+    show molly smile
+    m "Eventually, my grandmother found me sitting under an old oak tree, watching the dragonflies dance over the water." 
+    m "She just lauged and said, 'Looks like the forest wanted to show you something special today.'"
+    show molly happy
+    m "And I think she was right."
+    show molly smile
+    y "What a sweet story. I get why this place is so special to you."
+    show molly happy
+    m "I come here whenever I need a moment of quiet. Just the water, the wind, the little creatures scurrying around…"
+    m "Speaking of which, I saw a heron here the other morning. It was so graceful, standing right at the water's edge. Barely moved at all, just waiting… watching…"
+    show molly blush
+    m "Kind of like you right now."
+    y "Huh?"
+    show molly happy
+    m "You've been staring at me for a while now. Waiting, watching…" 
+    show molly blush
+    m "If I didn't know better, I'd say you were trying to reel {i}me{/i} in."
+    "A quiet moment settles between you. The sounds of the pond fill the space—gentle ripples on the water, the rustling of leaves in the breeze."
+    show molly smile
+    m "Well?"
+    "The silence lingers. This is your moment."
+    # Call the heart minigame with molly parameter
+    window hide
+    $ caught_fish = renpy.call_screen("fishing_minigame", game_type="heart", character="molly")
+    window show
+    
+    if caught_fish:
+        show molly blush
+        "I lean in closer, watching as her blush deepens."
+        y "You know, I think I caught something better than a fish today."
+        m "Oh? And what's that?"
+        y "A chance to know you better."
+        "She smiles, her eyes sparkling in the afternoon light."
+        m "I'd say we both caught something special today."
+        "We sit together by the pond, talking and laughing as the sun begins to set, casting golden reflections across the water."
+        scene black with dissolve
+        window hide
+        scene fin with dissolve
+        pause
+        return
+    else:
+        show molly frown
         "I attempt to sputter out a cheesy pick-up line, but it fails miserably."
         y "You may have caught- um.. you uh. Shit. Um.."
-        show shauna neutral2
-        s "Are you okay?"
-        show shauna surprise
-        s "Are you having a stroke?"
+        m "Are you okay?"
+        m "Are you having a stroke?"
         y "No, I'm... FUCK ummm hold on... You... I..."
-        show shauna surprise
-        s "Shit, you really {i}are{/i} having a stroke. Let's get you to the hospital!"
+        m "Oh dear. You really {i}are{/i} having a stroke. Let's get you to the hospital."
         "After a long drive to the hospital in an ambulance, I was diagnosed with a severe case of brain damage."
         "..."
         "There was no second date."
-        scene fin
-        return  
-
-label molly_route:
-    m "Welcome to my route!"
-    # Add more dialogue and scenes for Molly's route here
-    return
+        scene black with dissolve
+        window hide
+        scene fin with dissolve
+        pause
+        return

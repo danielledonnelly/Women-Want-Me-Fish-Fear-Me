@@ -1,72 +1,27 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/fishing_minigame.rpy", line 241, in script
-    $ caught = renpy.call_screen("fishing_minigame", game_type="fish")
-  File "game/fishing_minigame.rpy", line 241, in <module>
-    $ caught = renpy.call_screen("fishing_minigame", game_type="fish")
-  File "game/fishing_minigame.rpy", line 98, in execute
-    screen fishing_minigame(game_type="fish"):
-  File "game/fishing_minigame.rpy", line 98, in execute
-    screen fishing_minigame(game_type="fish"):
-  File "game/fishing_minigame.rpy", line 130, in execute
-    showif current_game.game_started and not current_game.game_over:
-  File "game/fishing_minigame.rpy", line 137, in execute
-    add "fishing-minigame/[game_type].png":
-Exception: DynamicImage 'fishing-minigame/[game_type].png': could not find image. ('fishing-minigame/fish.png')
+FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\1999d\\AppData\\Roaming/RenPy/WomenWantMeFishFearMe-1718396964\\persistent'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/fishing_minigame.rpy", line 241, in script
-    $ caught = renpy.call_screen("fishing_minigame", game_type="fish")
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ast.py", line 1131, in execute
-    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\python.py", line 1061, in py_exec_bytecode
-    exec(bytecode, globals, locals)
-  File "game/fishing_minigame.rpy", line 241, in <module>
-    $ caught = renpy.call_screen("fishing_minigame", game_type="fish")
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\exports.py", line 3181, in call_screen
-    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ui.py", line 299, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 3377, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 3810, in interact_core
-    root_widget.visit_all(lambda i : i.per_interact())
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 582, in visit_all
-    d.visit_all(callback, seen)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 582, in visit_all
-    d.visit_all(callback, seen)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 582, in visit_all
-    d.visit_all(callback, seen)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\screen.py", line 451, in visit_all
-    callback(self)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 3810, in <lambda>
-    root_widget.visit_all(lambda i : i.per_interact())
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\screen.py", line 462, in per_interact
-    self.update()
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\screen.py", line 653, in update
-    self.screen.function(**self.scope)
-  File "game/fishing_minigame.rpy", line 98, in execute
-    screen fishing_minigame(game_type="fish"):
-  File "game/fishing_minigame.rpy", line 98, in execute
-    screen fishing_minigame(game_type="fish"):
-  File "game/fishing_minigame.rpy", line 130, in execute
-    showif current_game.game_started and not current_game.game_over:
-  File "game/fishing_minigame.rpy", line 137, in execute
-    add "fishing-minigame/[game_type].png":
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\sl2\sldisplayables.py", line 450, in sl2add
-    d = renpy.easy.displayable(d, scope=scope)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\easy.py", line 114, in displayable
-    return renpy.display.image.DynamicImage(d, scope=scope)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\image.py", line 591, in __init__
-    self.find_target(scope)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\image.py", line 676, in find_target
-    raise Exception(error)
-Exception: DynamicImage 'fishing-minigame/[game_type].png': could not find image. ('fishing-minigame/fish.png')
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\bootstrap.py", line 277, in bootstrap
+    renpy.main.main()
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\main.py", line 663, in main
+    renpy.persistent.update(True)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\persistent.py", line 397, in update
+    save()
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\persistent.py", line 413, in save
+    renpy.loadsave.location.save_persistent(data)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\savelocation.py", line 494, in save_persistent
+    l.save_persistent(data)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\savelocation.py", line 352, in save_persistent
+    self.persistent_mtime = os.path.getmtime(fn)
+  File "/home/tom/ab/renpy-build/tmp/install.linux-x86_64/lib/python3.9/genericpath.py", line 55, in getmtime
+FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\1999d\\AppData\\Roaming/RenPy/WomenWantMeFishFearMe-1718396964\\persistent'
 
 Windows-10-10.0.22631 AMD64
 Ren'Py 8.0.3.22090809
 Women Want Me Fish Fear Me 1.0
-Sat Mar  8 04:03:31 2025
+Sat Mar  8 09:57:52 2025

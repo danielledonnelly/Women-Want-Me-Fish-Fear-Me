@@ -95,7 +95,7 @@ default fishing = FishingGame()
 default heart_fishing = FishingGame()
 
 # Main minigame screen - now accepts a game_type parameter
-screen fishing_minigame(game_type="fish"):
+screen fishing_minigame(game_type="fish", character="shauna"):
     modal True
     
     default current_game = heart_fishing if game_type == "heart" else fishing
@@ -133,10 +133,15 @@ screen fishing_minigame(game_type="fish"):
             pos (current_game.bobber_x, current_game.bobber_y)
             size (80, 160)
 
-        # Fish or Heart based on game type
-        add "fishing-minigame/[game_type].png":
-            pos (current_game.fish_x, current_game.fish_y)
-            size (70, 70)
+        # Fish or Heart based on game type and character
+        if character == "molly":
+            add "fishing-minigame/[game_type]2.png":
+                pos (current_game.fish_x, current_game.fish_y)
+                size (70, 70)
+        else:
+            add "fishing-minigame/[game_type].png":
+                pos (current_game.fish_x, current_game.fish_y)
+                size (70, 70)
 
         # Vertical progress bar - moved right
         frame:
@@ -238,7 +243,10 @@ label fishing_minigame:
     window hide
     $ fishing.reset()
     $ renpy.transition(None)
-    $ caught = renpy.call_screen("fishing_minigame", game_type="fish")
+    if "molly" in renpy.get_return_stack():
+        $ caught = renpy.call_screen("fishing_minigame", game_type="fish", character="molly")
+    else:
+        $ caught = renpy.call_screen("fishing_minigame", game_type="fish", character="shauna")
     window show
     return caught
 
@@ -247,6 +255,9 @@ label heart_minigame:
     window hide
     $ heart_fishing.reset()
     $ renpy.transition(None)
-    $ caught = renpy.call_screen("fishing_minigame", game_type="heart")
+    if "molly" in renpy.get_return_stack():
+        $ caught = renpy.call_screen("fishing_minigame", game_type="heart", character="molly")
+    else:
+        $ caught = renpy.call_screen("fishing_minigame", game_type="heart", character="shauna")
     window show
     return caught
