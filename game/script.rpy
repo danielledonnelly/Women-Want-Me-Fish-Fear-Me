@@ -103,7 +103,7 @@ label start:
     # Show website background for name input
     scene website
     window show
-    
+
     # User inputs their name
     $ player_name = renpy.input("Enter your name: ")
     $ player_name = player_name.strip()  # Remove any leading or trailing whitespace
@@ -119,16 +119,16 @@ label start:
 label display_profile:
     window hide  # Ensure textbox stays hidden
     scene black
-    
+
     # Show current profile
     if current_profile == "shauna":
         scene shauna-profile
     else:
         scene molly-profile
-    
+
     # Display swipe buttons
     call screen profile_buttons
-    
+
     return
 
 # Screen for profile navigation buttons
@@ -229,7 +229,6 @@ label sdate1_catch:
     show shauna happy
     s "I haven't had a single nip on my line yet, but I have a feeling my luck will change soon."
     show shauna smile
-    "I smiled."
     y "I'm sure it will. It's still only early, right? There's plenty of time."
     "Shauna nodded in agreement, her hands tightening around her fishing rod."
     jump sdate1_merge
@@ -390,7 +389,6 @@ label sdate1_ending:
         scene fin with dissolve
         pause
         return
-
     else:
         show shauna frown
         "I try to say something smooth, but the words get jumbled."
@@ -473,7 +471,7 @@ label molly_date1:
     
     # Call the fishing minigame
     window hide
-    $ caught_fish = renpy.call_in_new_context("fishing_minigame")
+    $ caught_fish = renpy.call_screen("fishing_minigame", game_type="fish", character="molly")
     window show
     
     if caught_fish:
@@ -535,7 +533,7 @@ label mdate1_merge:
     "The silence lingers. This is your moment."
     # Call the heart minigame with molly parameter
     window hide
-    $ caught_fish = renpy.call_in_new_context("heart_minigame")
+    $ caught_fish = renpy.call_screen("fishing_minigame", game_type="heart", character="molly")
     window show
     
     if caught_fish:
@@ -567,4 +565,4 @@ label mdate1_merge:
         window hide
         scene fin with dissolve
         pause
-        return
+    return

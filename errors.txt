@@ -2,12 +2,21 @@
 errors listed below, and try again.
 
 
-File "game/fishing_minigame.rpy", line 195: 'repeat' is not a keyword argument or valid child for the key statement.
-    key "K_SPACE" action [
-                Function(move_bobber_up, current_game),
-                NullAction()
-            ] repeat True  
-                       ^
+File "game/script.rpy", line 372: if statement expects a non-empty block.
+    if caught_fish:
+                   ^
+
+File "game/script.rpy", line 375: Line is indented, but the preceding show statement statement does not expect a block. Please check this line's indentation.
+    "She rolls her eyes and laughs. Her smile is infectious."
+    ^
+
+File "game/script.rpy", line 379: Line is indented, but the preceding say statement statement does not expect a block. Please check this line's indentation.
+    "There's a comfortable silence for a few moments before she speaks again."
+    ^
+
+File "game/script.rpy", line 394: expected statement.
+    else:
+        ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Sun Mar  9 01:27:15 2025
+Sun Mar  9 19:25:42 2025
