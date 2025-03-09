@@ -1,27 +1,58 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\1999d\\AppData\\Roaming/RenPy/WomenWantMeFishFearMe-1718396964\\persistent'
+  File "game/fishing_minigame.rpy", line 255, in script
+    $ caught = renpy.call_screen("fishing_minigame", game_type="fish", character="shauna")
+  File "game/fishing_minigame.rpy", line 255, in <module>
+    $ caught = renpy.call_screen("fishing_minigame", game_type="fish", character="shauna")
+  File "renpy/common/00action_other.rpy", line 578, in __call__
+    rv = self.callable(*self.args, **self.kwargs)
+  File "game/fishing_minigame.rpy", line 113, in update_movement
+    if renpy.get_pressed_keys()["K_SPACE"]:
+AttributeError: module 'renpy.exports' has no attribute 'get_pressed_keys'
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\bootstrap.py", line 277, in bootstrap
-    renpy.main.main()
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\main.py", line 663, in main
-    renpy.persistent.update(True)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\persistent.py", line 397, in update
-    save()
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\persistent.py", line 413, in save
-    renpy.loadsave.location.save_persistent(data)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\savelocation.py", line 494, in save_persistent
-    l.save_persistent(data)
-  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\savelocation.py", line 352, in save_persistent
-    self.persistent_mtime = os.path.getmtime(fn)
-  File "/home/tom/ab/renpy-build/tmp/install.linux-x86_64/lib/python3.9/genericpath.py", line 55, in getmtime
-FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\\Users\\1999d\\AppData\\Roaming/RenPy/WomenWantMeFishFearMe-1718396964\\persistent'
+  File "game/fishing_minigame.rpy", line 255, in script
+    $ caught = renpy.call_screen("fishing_minigame", game_type="fish", character="shauna")
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ast.py", line 1131, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\python.py", line 1061, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/fishing_minigame.rpy", line 255, in <module>
+    $ caught = renpy.call_screen("fishing_minigame", game_type="fish", character="shauna")
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\exports.py", line 3181, in call_screen
+    rv = renpy.ui.interact(mouse="screen", type="screen", roll_forward=roll_forward)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\ui.py", line 299, in interact
+    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 3377, in interact
+    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\core.py", line 4258, in interact_core
+    rv = root_widget.event(ev, x, y, 0)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 1175, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 1175, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 1175, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\screen.py", line 743, in event
+    rv = self.child.event(ev, x, y, st)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\layout.py", line 1175, in event
+    rv = i.event(ev, x - xo, y - yo, cst)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\behavior.py", line 2418, in event
+    return run(self.function, *self.args, **self.kwargs)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\behavior.py", line 322, in run
+    new_rv = run(i, *args, **kwargs)
+  File "C:\Users\1999d\Downloads\renpy-8.0.3-sdk\renpy\display\behavior.py", line 329, in run
+    return action(*args, **kwargs)
+  File "renpy/common/00action_other.rpy", line 578, in __call__
+    rv = self.callable(*self.args, **self.kwargs)
+  File "game/fishing_minigame.rpy", line 113, in update_movement
+    if renpy.get_pressed_keys()["K_SPACE"]:
+AttributeError: module 'renpy.exports' has no attribute 'get_pressed_keys'
 
 Windows-10-10.0.22631 AMD64
 Ren'Py 8.0.3.22090809
 Women Want Me Fish Fear Me 1.0
-Sat Mar  8 09:57:52 2025
+Sun Mar  9 01:29:17 2025

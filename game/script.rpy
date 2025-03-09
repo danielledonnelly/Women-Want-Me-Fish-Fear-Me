@@ -1,9 +1,9 @@
 ﻿# The script of the game goes in this file.
 
 # Declare characters used by this game.
-define s = Character("Shauna")
-define m = Character("Molly")
-define y = Character("Me")
+define s = Character("Shauna", who_color="#B8860B")  # Darker golden yellow (DarkGoldenrod)
+define m = Character("Molly", who_color="#9370DB")   # Medium purple - darker but still soft
+define y = Character("Me", who_color="#1E90FF")      # Darker dodger blue for player
 define n = Character("Enthusiastic Ad Narrator")
 
 # Define background music
@@ -108,8 +108,8 @@ label start:
     $ player_name = renpy.input("Enter your name: ")
     $ player_name = player_name.strip()  # Remove any leading or trailing whitespace
 
-    # Assign the player's name to character y
-    $ y = Character(player_name)
+    # Assign the player's name to character y with blue color
+    $ y = Character(player_name, who_color="#4DA6FF")  # Keep blue color when name is set
 
     # Hide textbox before jumping to profile display
     window hide
@@ -210,7 +210,9 @@ label shauna_date1:
     "Eventually, I feel a tug on my line."
 
     # Call the fishing minigame
+    window hide
     $ caught_fish = renpy.call_in_new_context("fishing_minigame")
+    window show
     
     if caught_fish:
         jump sdate1_catch
@@ -398,7 +400,7 @@ label sdate1_ending:
         s "Uhh, you good?"
         "I blurt out the worst possible thing."
         y "I just—I feel like I've caught you, you know? Like, I set the bait, and now you're right where I want you."
-        show shauna yell
+        show shauna shout
         s "Dude."
         s "...What."
         y "Wait. I didn't mean it like that—"
@@ -469,9 +471,9 @@ label molly_date1:
     "For a few moments, the water is still."
     "...Until suddenly, I feel a tug on my line."
     
-    # Call the fishing minigame with molly parameter
+    # Call the fishing minigame
     window hide
-    $ caught_fish = renpy.call_screen("fishing_minigame", game_type="fish", character="molly")
+    $ caught_fish = renpy.call_in_new_context("fishing_minigame")
     window show
     
     if caught_fish:
@@ -506,11 +508,11 @@ label mdate1_merge:
     m "It's actually a funny story..."
     show molly smile
     m "I used to help my grandmother collect wild herbs and berries. One summer, I wandered off a little too far while looking for the sweetest blackberries."
-    show molly blush
-    m "Before I knew it, I was completely lost. I was too stubborn to call for help, so I kept walking, hoping I'd recognize something."
     show molly happy
-    m "That's when I found this pond. The water was so still, the air smelled like wildflowers... I almost forgot I was lost."
+    m "Before I knew it, I was completely lost. I was too stubborn to call for help, so I kept walking, hoping I'd recognize something."
     show molly smile
+    m "That's when I found this pond. The water was so still, the air smelled like wildflowers... I almost forgot I was lost."
+    show molly happy
     m "Eventually, my grandmother found me sitting under an old oak tree, watching the dragonflies dance over the water." 
     m "She just lauged and said, 'Looks like the forest wanted to show you something special today.'"
     show molly happy
@@ -533,7 +535,7 @@ label mdate1_merge:
     "The silence lingers. This is your moment."
     # Call the heart minigame with molly parameter
     window hide
-    $ caught_fish = renpy.call_screen("fishing_minigame", game_type="heart", character="molly")
+    $ caught_fish = renpy.call_in_new_context("heart_minigame")
     window show
     
     if caught_fish:

@@ -2,9 +2,12 @@
 errors listed below, and try again.
 
 
-File "game/screens.rpy", line 1571: 'xfill' is not a keyword argument or valid child for the add statement.
-    xfill True
-         ^
+File "game/fishing_minigame.rpy", line 195: 'repeat' is not a keyword argument or valid child for the key statement.
+    key "K_SPACE" action [
+                Function(move_bobber_up, current_game),
+                NullAction()
+            ] repeat True  
+                       ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Sat Mar  8 03:28:07 2025
+Sun Mar  9 01:27:15 2025

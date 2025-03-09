@@ -1,5 +1,3 @@
-# Simple Fishing Minigame for Ren'Py
-
 # Define the intro text images
 image it_text_image = "fishing-minigame/it.png"
 image her_text_image = "fishing-minigame/her.png"
