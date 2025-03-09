@@ -46,7 +46,7 @@ init python:
             if self.game_over or not self.game_started:  # Don't update if in intro or game over
                 return
             
-            # Update timer
+            # Update timer with actual delta time
             self.timer -= dt
             if self.timer <= 0:
                 self.timer = 0
@@ -78,12 +78,12 @@ init python:
             
             # If there's any overlap between the ranges
             if bobber_bottom >= fish_top and bobber_top <= fish_bottom:
-                self.overlap_time += dt * 0.5  # Increased rate for better feedback
+                self.overlap_time += dt  # Use actual delta time for overlap
                 if self.overlap_time >= 2.0:
                     self.caught = True
                     self.game_over = True
             else:
-                self.overlap_time = max(0, self.overlap_time - dt * 0.3)  # Faster decrease when not overlapping
+                self.overlap_time = max(0, self.overlap_time - dt * 0.6)  # Faster decrease when not overlapping
 
         def start_game(self):
             self.game_started = True
@@ -132,14 +132,24 @@ screen fishing_minigame(game_type="fish", character="shauna"):
             size (80, 160)
 
         # Fish or Heart based on game type and character
-        if character == "molly":
-            add "fishing-minigame/[game_type]2.png":
-                pos (current_game.fish_x, current_game.fish_y)
-                size (70, 70)
-        else:
-            add "fishing-minigame/[game_type].png":
-                pos (current_game.fish_x, current_game.fish_y)
-                size (70, 70)
+        if game_type == "fish":
+            if character == "molly":
+                add "fishing-minigame/fish2.png":
+                    pos (current_game.fish_x, current_game.fish_y)
+                    size (70, 70)
+            else:
+                add "fishing-minigame/fish.png":
+                    pos (current_game.fish_x, current_game.fish_y)
+                    size (70, 70)
+        else:  # heart game
+            if character == "molly":
+                add "fishing-minigame/heart2.png":
+                    pos (current_game.fish_x, current_game.fish_y)
+                    size (70, 70)
+            else:
+                add "fishing-minigame/heart.png":
+                    pos (current_game.fish_x, current_game.fish_y)
+                    size (70, 70)
 
         # Vertical progress bar - moved right
         frame:
