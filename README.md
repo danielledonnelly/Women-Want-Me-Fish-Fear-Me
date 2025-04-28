@@ -1,3 +1,5 @@
-This is a fishing minigame I'm making for a visual novel I'm writing with a fishing mechanic. Inspired by Stardew Valley's fishing minigame, I made this with Canva assets.
-
-Please keep in mind that this is a very rough draft, I'm still learning how to use Python.
+# [Women Want Me Fish Fear Me](https://daniyells.itch.io/women-want-me-fish-fear-me)
+## A lesbian dating sim with a built-in fishing minigame, created using RenPy
+✦ Reel in fish and hearts in this light-hearted visual novel that I created for FishJam, one of my first GameJams
+<br> ✦ I designed the sprites using an asset package called Modern Female Customisable Sprite by Fungii Draws
+<br> ✦ Characters are voiced by AI agents, synthesized with consent, using my voice and the voice of a friend
